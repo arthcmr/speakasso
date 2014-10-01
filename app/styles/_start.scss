@@ -270,13 +270,6 @@ button:focus {
 	color: rgba(0,0,0,0.5);
 }
 
-.fs-fields [required] {
-	background-image: url(../img/abacusstar.svg);
-	background-position: top right;
-	background-size: 18px;
-	background-repeat: no-repeat;
-}
-
 .fs-fields input:focus {
 	background-color: #f7f7f7; /* Fixes chrome bug with placeholder */
 }
@@ -424,21 +417,6 @@ button:focus {
 .fs-form-overview .cs-skin-boxes > span::before {
 	padding-top: 50px;
 	box-shadow: 0 20px 0 #292c30, inset 0 -5px #292c30;
-}
-
-.fs-fields input.fs-mark {
-	padding-left: 1em;
-	background-image: url(../img/dollar.svg);
-	background-position: 0% 0.15em;
-	background-size: auto 75%;
-	background-repeat: no-repeat;
-}
-
-.fs-fields input.fs-mark[required] {
-	background-image: url(../img/dollar.svg), url(../img/abacusstar.svg);
-	background-position: 0% 0.15em, top right;
-	background-size: auto 75%, 18px;
-	background-repeat: no-repeat;
 }
 
 /* placeholder */

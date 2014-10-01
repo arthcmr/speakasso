@@ -18,12 +18,22 @@ angular.module('perceptionClientApp')
   		{ value: "portuguese", name: "Portuguese", image: "Brazil.png"},
   	];
 
+  	$scope.form = {
+  		name: "",
+  		email: "",
+  		language: ""
+  	};
+
     $scope.initStart = function() {
 		$(function() {
 			var formWrap = document.getElementById( 'fs-form-wrap' );
 			new FForm( formWrap, {});
 		});
     };
+
+    $scope.submitForm = function() {
+    	console.log($scope.form);
+    }
 
     $scope.initStart();
 
