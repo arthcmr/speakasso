@@ -10,7 +10,7 @@
 angular.module('perceptionClientApp')
   .controller('StartCtrl', function ($scope, $rootScope) {
 
-  	if($rootScope.prev!="main") {
+  	if($rootScope.prev!="main" && !$rootScope.settings) {
   		location.href = "#/";
   		return;
   	}

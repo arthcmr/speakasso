@@ -1,15 +1,28 @@
-<div class="slideshow">
-    <div class="explanation">A few instructions. Read carefully.</div>
+<div id="progress" style="width: {{progress}}%"></div>
+<div class="slideshow" ng-keyup="$event.keyCode == 13 && nextSlide()">
+    <div class="explanation">{{instructions.explanation}}</div>
     <div class="slides">
         <section ng-class="{current: slide==1}">
-            <h1 class="ss-title ss-anim-down">Two words will appear on the screen.</h1>
-            <h2 class="ss-subtitle ss-anim-down">One word will be on the left side and one word will be on the right side.</h2>
-            <h2 class="ss-subtitle ss-anim-down">Read them carefully, because they will disappear after 2.5 seconds.</h2>
+            <h1 class="ss-title ss-anim-down">{{instructions.slide1.title}}</h1>
+            <h2 ng-repeat="subtitle in instructions.slide1.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
         </section>
         <section ng-class="{current: slide==2}">
-            <h1 class="ss-title ss-anim-down">An image will appear on the screen.</h1>
-            <h2 class="ss-subtitle ss-anim-down">Right after the words disappear, an image will be displayed</h2>
-            <h2 class="ss-subtitle ss-anim-down">The image shows one of the words that were on the screen.</h2>
+            <h1 class="ss-title ss-anim-down">{{instructions.slide2.title}}</h1>
+            <h2 ng-repeat="subtitle in instructions.slide2.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
+
+            <div class="keys animated-keys ss-anim-up">
+            	<span class="key left">{{instructions.slide2.keys.left}}</span>
+            	<span class="key right">{{instructions.slide2.keys.right}}</span>
+            </div>
+        </section>
+        <section ng-class="{current: slide==3}">
+            <h1 class="ss-title ss-anim-down">{{instructions.slide3.title}}</h1>
+            <h2 ng-repeat="subtitle in instructions.slide3.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
+
+            <div class="keys ss-anim-up">
+            	<span class="key left">{{instructions.slide2.keys.left}}</span>
+            	<span class="key right">{{instructions.slide2.keys.right}}</span>
+            </div>
         </section>
     </div>
 
@@ -18,8 +31,8 @@
             <div class="macscreen">
                 <div class="screen" ng-class="{current: slide==1}">
                     <div class="words">
-                        <span class="word left">Bird</span>
-                        <span class="word right">Cat</span>
+                        <span class="word left">{{instructions.slide1.words.left}}</span>
+                        <span class="word right">{{instructions.slide1.words.right}}</span>
                         <div class="pie-wrapper">
                             <div class="pie spinner"></div>
                             <div class="pie filler"></div>
@@ -32,6 +45,12 @@
                         <span class="image"></span>
                     </div>
                 </div>
+                <div class="screen" ng-class="{current: slide==3}">
+                    <div class="counter">
+                    	<div id="counter">
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="keypadtop">
@@ -42,6 +61,11 @@
         </div>
     </div>
 
-    <button ng-click="nextSlide()" class="ss-continue btn btn-lg btn-primary">
-        <span class="glyphicon glyphicon-chevron-right"></span> Continue</button>
+	
+	<a ng-if="slide==1" ng-href="#/start" class="ss-previous btn btn-lg btn-default">
+        <span class="glyphicon glyphicon-wrench"></span> Settings</a>
+	<button ng-if="slide>1" ng-click="prevSlide()" class="ss-previous btn btn-lg btn-default">
+        <span class="glyphicon glyphicon-chevron-left"></span> {{instructions.previous}}</button>
+    <button ng-if="slide<num_slides" ng-click="nextSlide()" class="ss-continue btn btn-lg btn-primary">
+        {{instructions.continue}} <span class="glyphicon glyphicon-chevron-right"></span></button>
 </div>

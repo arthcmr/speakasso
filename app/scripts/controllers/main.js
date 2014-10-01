@@ -8,12 +8,11 @@
  * Controller of the perceptionClientApp
  */
 angular.module('perceptionClientApp')
-  .controller('MainCtrl', function ($scope, $rootScope) {
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+    .controller('MainCtrl', function($scope, $rootScope) {
 
-    $rootScope.prev = "main";
-  });
+        $scope.goFullscreen = function() {
+            $(document).fullScreen(true);
+        }
+
+        $rootScope.prev = "main";
+    });

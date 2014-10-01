@@ -1,5 +1,13 @@
-$colorBlue: #428bca;
-
-body {
-	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$colorBlue:#428bca;
+ body {
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+#progress {
+    position: absolute;
+    display: block;
+    top: 0;
+    width: 0%;
+    height: 0.5em;
+    background: $colorBlue;
+    @include transition(width, 0.3s, ease-in-out);
 }
