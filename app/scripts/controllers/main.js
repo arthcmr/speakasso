@@ -8,10 +8,12 @@
  * Controller of the perceptionClientApp
  */
 angular.module('perceptionClientApp')
-  .controller('MainCtrl', function ($scope) {
+  .controller('MainCtrl', function ($scope, $rootScope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
       'Karma'
     ];
+
+    $rootScope.prev = "main";
   });

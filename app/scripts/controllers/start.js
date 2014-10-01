@@ -8,7 +8,12 @@
  * Controller of the perceptionClientApp
  */
 angular.module('perceptionClientApp')
-  .controller('StartCtrl', function ($scope) {
+  .controller('StartCtrl', function ($scope, $rootScope) {
+
+  	if($rootScope.prev!="main") {
+  		location.href = "#/";
+  		return;
+  	}
 
   	$scope.languages = [
   		{ value: "english", name: "English", image: "United-States-of-America.png"},
@@ -32,9 +37,12 @@ angular.module('perceptionClientApp')
     };
 
     $scope.submitForm = function() {
-    	console.log($scope.form);
+    	$rootScope.settings = $scope.form;
+    	location.href="#/instructions";
     }
 
     $scope.initStart();
+
+    $rootScope.prev = "start";
 
   });
