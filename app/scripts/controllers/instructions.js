@@ -6,7 +6,7 @@ var instructions = {
         'press_enter': 'or press ENTER',
         'previous': 'Previous',
         'start': 'Start',
-        'explanation': 'A few instructions. Read carefully.',
+        'explanation': 'here are a few instructions. Read carefully.',
         'slide1': {
             'title': 'Two words will appear on the screen.',
             'subtitles': ['One word will be on the left side and one word will be on the right side.', 'Read them carefully, because they will disappear after 2.5 seconds.'],
@@ -37,7 +37,7 @@ var instructions = {
         'press_enter': 'ou pressione ENTER',
         'previous': 'Anterior',
         'start': 'Iniciar',
-        'explanation': 'Algumas instruções. Leia com atenção.',
+        'explanation': 'aqui vão algumas instruções. Leia com atenção.',
         'slide1': {
             'title': 'Duas palavras aparecerão na tela.',
             'subtitles': ['Uma palavra no lado esquerdo e uma palavra no lado direito da tela.', 'Leia atenciosamente, porque elas desaparecerão em  2,5 segundos.'],
@@ -75,7 +75,7 @@ var instructions = {
 angular.module('perceptionClientApp')
     .controller('InstructionsCtrl', function($scope, $rootScope) {
 
-        $rootScope.settings = {
+        $rootScope.settings = $rootScope.settings || {
             name: "Arthur",
             email: "arthurcamara@gmail.com",
             language: "portuguese"
@@ -125,7 +125,9 @@ angular.module('perceptionClientApp')
         $rootScope.prev = "instructions";
 
         //instructions
-        $scope.instructions = instructions[$rootScope.settings.language];
+        $scope.instructions = instructions[$rootScope.settings.language] || instructions['english'];
+        var firstName = $rootScope.settings.name.split(" ")[0];
+        $scope.firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
 
         //slide control
         $scope.slide = 1;
