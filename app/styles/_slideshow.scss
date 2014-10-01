@@ -25,13 +25,13 @@
             display: block;
         }
     }
-    .ss-continue, .ss-previous {
+    .ss-continue, .ss-previous, .ss-start {
         display: block;
         position: absolute;
         bottom: 0;
         font-size: 1.25em;
     }
-    .ss-continue {
+    .ss-continue, .ss-start {
         right: 0;
         margin: 0 40px 40px 0;
     }
@@ -39,6 +39,10 @@
         left: 0;
         margin: 0 0 40px 40px;
     }
+    .ss-start {
+      font-size: 2em;
+    }
+
     .ss-anim-up {
         -webkit-animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
         animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;

@@ -10,16 +10,10 @@
 angular.module('perceptionClientApp')
   .controller('ExperimentCtrl', function ($scope, $rootScope) {
 
-  	if($rootScope.prev!="instructions") {
-  		location.href = "#/";
-  		return;
-  	}
-
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
+  	if (!$rootScope.settings) {
+        location.href = "#/";
+        return;
+    }
+    
     $rootScope.prev = "experiment";
   });

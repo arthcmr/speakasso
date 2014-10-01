@@ -112,7 +112,14 @@ angular.module('perceptionClientApp')
         }
 
         function calculateProgress() {
-            $scope.progress = ($scope.slide)/$scope.num_slides * 100;
+            $scope.progress = ($scope.slide) / $scope.num_slides * 100;
+        }
+
+        function clearIntervals() {
+            var interval_id = window.setInterval("", 9999);
+            for (var i = 1; i < interval_id; i++) {
+                window.clearInterval(i);
+            }
         }
 
         $rootScope.prev = "instructions";
@@ -137,9 +144,10 @@ angular.module('perceptionClientApp')
         };
 
         $(function() {
+            clearIntervals();
             hideRoutine();
             keysRoutine();
-            setInterval(function() {
+            window.setInterval(function() {
                 hideRoutine();
                 keysRoutine();
             }, 4000);
