@@ -1,26 +1,26 @@
-<div class="start-form" id="fs-form-wrap">
+<div class="start-form fs-form-wrap" id="fs-form-wrap">
     <form id="start-form" class="fs-form fs-form-full" autocomplete="off">
+        <div class="explanation">Let's start by setting things up...</div>
         <ol class="fs-fields">
             <li>
                 <label class="fs-field-label fs-anim-upper" for="q1">What's your name?</label>
                 <input class="fs-anim-lower" id="q1" name="q1" type="text" placeholder="Type your name" required/>
             </li>
             <li>
-                <label class="fs-field-label fs-anim-upper" for="q2" data-info="We won't send you spam, we promise...">What's your email address?</label>
+                <label class="fs-field-label fs-anim-upper" for="q2" data-info="We won't send you spam, we promise... We will use this to identify unique users.">What's your email address?</label>
                 <input class="fs-anim-lower" id="q2" name="q2" type="email" placeholder="example@email.com" required/>
             </li>
             <li data-input-trigger>
                 <label class="fs-field-label fs-anim-upper">What's your first language?</label>
-                <select class="cs-select cs-skin-boxes fs-anim-lower">
-                    <option value="" disabled selected>Pick a language</option>
-                    <option value="english" data-class="english">english</option>
-                    <option value="portuguese" data-class="portuguese">portuguese</option>
-                    
-                </select>
+                <div class="fs-radio-group fs-radio-custom clearfix fs-anim-lower">
+                    <span ng-repeat="lang in languages">
+                        <input id="{{lang.value}}" name="language" type="radio" value="{{lang.value}}" data-image="{{lang.image}}"/><label for="{{lang.value}}" class="radio-{{lang.value}}">{{lang.name}}</label>
+                    </span>
+                </div>
             </li>
         </ol>
         <!-- /fs-fields -->
-        <button class="fs-submit" type="submit">Continue!</button>
+        <button class="fs-submit btn btn-lg btn-success" type="submit"><span class="glyphicon glyphicon-ok"></span> Start!</button>
     </form>
     <!-- /fs-form -->
 </div>

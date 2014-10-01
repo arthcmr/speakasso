@@ -13,6 +13,8 @@
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
+
+    <script src="bower_components/modernizr/modernizr.js"></script>
   </head>
   <body ng-app="perceptionClientApp">
     <!--[if lt IE 7]>
@@ -52,14 +54,16 @@
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/classie/classie.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <script src="scripts/fullscreenForm.js"></script>
         <!-- build:js({.tmp,app}) scripts/scripts.js -->
+        <script src="scripts/fullscreenForm.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
+        <script src="scripts/controllers/start.js"></script>
+        <script src="scripts/controllers/experiment.js"></script>
         <!-- endbuild -->
 </body>
 </html>
