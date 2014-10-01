@@ -10,4 +10,18 @@ $colorBlue:#428bca;
     height: 0.5em;
     background: $colorBlue;
     @include transition(width, 0.3s, ease-in-out);
+
+    -webkit-animation: animGrowWidth 0.5s cubic-bezier(0.7, 0, 0.3, 1) 1;
+    animation: animGrowWidth 0.5s cubic-bezier(0.7, 0, 0.3, 1) 1;
+}
+
+@-webkit-keyframes animGrowWidth {
+    from {
+        width: 0;
+    }
+}
+@keyframes animGrowWidth {
+    from {
+        width: 0;
+    }
 }
