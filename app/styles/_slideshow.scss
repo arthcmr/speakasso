@@ -1,0 +1,124 @@
+.slideshow {
+    color: #333333;
+    .explanation {
+        @include absolute(40px, auto, auto, 40px);
+        display: block;
+        font-size: 2em;
+        color: #ccc;
+        font-weight: 700;
+    }
+    section {
+        display: none;
+        margin-top: 150px;
+        .ss-title {
+            font-weight: 700;
+            text-align: center;
+            font-size: 3em;
+            color: $colorBlue;
+        }
+        .ss-subtitle {
+            text-align: center;
+            font-size: 1.8em;
+            color: #666;
+        }
+        &.current {
+            display: block;
+        }
+    }
+    button.ss-continue {
+        display: block;
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        margin: 0 40px 60px 0;
+        font-size: 1.25em;
+    }
+    .ss-continue::after {
+        @include absolute(100%, auto, auto, 0px);
+        width: 100%;
+        line-height: 3;
+        text-align: center;
+        background: transparent;
+        color: rgba(0, 0, 0, 0.3);
+        content: 'or press ENTER';
+        font-size: 0.65em;
+        pointer-events: none;
+    }
+    .ss-anim-up {
+        -webkit-animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
+        animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
+        -webkit-animation-delay: 0.25s;
+        animation-delay: 0.25s;
+    }
+    .ss-anim-down {
+        -webkit-animation: animShowDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
+        animation: animShowDown 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
+        -webkit-animation-delay: 0.25s;
+        animation-delay: 0.25s;
+    }
+    @-webkit-keyframes animShowDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100px, 0);
+        }
+    }
+    @keyframes animShowDown {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, -100px, 0);
+            transform: translate3d(0, -100px, 0);
+        }
+    }
+    @-webkit-keyframes animShowUp {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100px, 0);
+        }
+    }
+    @keyframes animShowUp {
+        from {
+            opacity: 0;
+            -webkit-transform: translate3d(0, 100px, 0);
+            transform: translate3d(0, 100px, 0);
+        }
+    }
+}
+.macscreen {
+    .screen {
+        @include absoluteAll();
+        padding: 30px;
+        display: none;
+
+        &.current {
+          display: block;
+        }
+    }
+    .words {
+        padding-top: 80px;
+        .word {
+            font-weight: 700;
+            font-size: 2em;
+            &.left {
+                float: left;
+            }
+            &.right {
+                float: right;
+            }
+        }
+        .pie-wrapper {
+            margin-top: 110px;
+        }
+        @include timer('.pie-wrapper', 2.5, 15px, #ddd, '5px solid #ddd');
+    }
+
+    .imagescreen {
+        padding-top: 45px;
+        .image {
+          display: block;
+          width: 160px;
+          height: 120px;
+          border: 5px solid #ddd;
+          margin: 0 auto;
+        }
+    }
+}

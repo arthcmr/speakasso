@@ -1,0 +1,47 @@
+<div class="slideshow">
+    <div class="explanation">A few instructions. Read carefully.</div>
+    <div class="slides">
+        <section ng-class="{current: slide==1}">
+            <h1 class="ss-title ss-anim-down">Two words will appear on the screen.</h1>
+            <h2 class="ss-subtitle ss-anim-down">One word will be on the left side and one word will be on the right side.</h2>
+            <h2 class="ss-subtitle ss-anim-down">Read them carefully, because they will disappear after 2.5 seconds.</h2>
+        </section>
+        <section ng-class="{current: slide==2}">
+            <h1 class="ss-title ss-anim-down">An image will appear on the screen.</h1>
+            <h2 class="ss-subtitle ss-anim-down">Right after the words disappear, an image will be displayed</h2>
+            <h2 class="ss-subtitle ss-anim-down">The image shows one of the words that were on the screen.</h2>
+        </section>
+    </div>
+
+    <div class="macbook ss-anim-up">
+        <div class="macscreenwrap">
+            <div class="macscreen">
+                <div class="screen" ng-class="{current: slide==1}">
+                    <div class="words">
+                        <span class="word left">Bird</span>
+                        <span class="word right">Cat</span>
+                        <div class="pie-wrapper">
+                            <div class="pie spinner"></div>
+                            <div class="pie filler"></div>
+                            <div class="mask"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="screen" ng-class="{current: slide==2}">
+                    <div class="imagescreen">
+                        <span class="image"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="keypadtop">
+            <div class="keyhold"></div>
+        </div>
+        <div class="keypadbottom">
+            <div></div>
+        </div>
+    </div>
+
+    <button ng-click="nextSlide()" class="ss-continue btn btn-lg btn-primary">
+        <span class="glyphicon glyphicon-chevron-right"></span> Continue</button>
+</div>
