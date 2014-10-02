@@ -1,0 +1,19 @@
+<div id="progress" style="width: 100%"></div>
+<div class="thankyou">
+    <span class="icon glyphicon glyphicon-thumbs-up "></span>
+                <p>
+    <h1 class="title">You're done! Thank you so much, {{firstName}}!</h1>
+    <h2 class="subtitle">We really appreciate your help.</h2>
+
+    <div class="jumbotron more">
+    <p class="results">You identified <span class="result">{{correct}}/{{total}} 
+    </span> objects correctly and your average object recognition speed was <span class="result">{{speed}} ms</span>.</p>
+    <p class="results">You recognized colored images <span class="result">{{colored_faster}}</span> than achromatic images.</p>
+
+    <hr />
+    <p>If you'd like to know more about our research and results, contact us:</p>
+    <p><a href="mailto:acvs@kth.se">Arthur Camara</a> | <a href="mailto:acvds@kth.se">Shuo Feng</a> | <a href="mailto:acvs@kth.se">Charles Windlin</a></p>
+    </div>
+
+    <button class='btn btn-lg btn-primary' ng-click='closeExperiment()'><span class="glyphicon glyphicon-ok-sign "></span> Close experiment</button>
+</div>

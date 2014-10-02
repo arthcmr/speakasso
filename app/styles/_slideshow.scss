@@ -33,16 +33,28 @@
     }
     .ss-continue, .ss-start {
         right: 0;
-        margin: 0 40px 40px 0;
+        margin: 0 40px 60px 0;
+        &::after {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            line-height: 3;
+            text-align: center;
+            background: transparent;
+            color: rgba(0, 0, 0, 0.3);
+            content: attr(data-help);
+            font-size: 12px;
+            pointer-events: none;
+        }
     }
     .ss-previous {
         left: 0;
-        margin: 0 0 40px 40px;
+        margin: 0 0 60px 40px;
     }
     .ss-start {
-      font-size: 2em;
+        font-size: 2em;
     }
-
     .ss-anim-up {
         -webkit-animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
         animation: animShowUp 0.5s cubic-bezier(0.7, 0, 0.3, 1) both 0.15s;
