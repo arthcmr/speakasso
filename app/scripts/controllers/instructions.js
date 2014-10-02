@@ -8,11 +8,11 @@ var instructions = {
         'start': 'Start',
         'explanation': 'here are a few instructions. Read carefully.',
         'slide1': {
-            'title': 'Two words will appear on the screen.',
+            'title': 'Two words will appear on the screen:',
             'subtitles': ['One word will be on the left side and one word will be on the right side.', 'Read them carefully, because they will disappear after 2.5 seconds.'],
             'words': {
-                'left': 'Turtle',
-                'right': 'Cat'
+                'left': 'turtle',
+                'right': 'cat'
             }
         },
         'slide2': {
@@ -25,12 +25,13 @@ var instructions = {
         },
         'slide3': {
             'title': 'Identify all images.',
-            'subtitles': ['There will be 96 pairs of words and images. But it will be quick.', 'After you click START, you will be given 10 seconds to position your fingers over the letters Q and P'],
+            'subtitles': ['There will be 96 pairs of words and images. But it will be quick.', 'After you click START, you will be given 10 seconds to get ready'],
             'keys': {
                 'left': 'Q',
                 'right': 'P'
             }
-        }
+        },
+        'getready': "Get ready... Position your fingers over the letters Q and P"
     },
     'portuguese': {
         'continue': 'Próximo',
@@ -39,11 +40,11 @@ var instructions = {
         'start': 'Iniciar',
         'explanation': 'aqui vão algumas instruções. Leia com atenção.',
         'slide1': {
-            'title': 'Duas palavras aparecerão na tela.',
+            'title': 'Duas palavras aparecerão na tela:',
             'subtitles': ['Uma palavra no lado esquerdo e uma palavra no lado direito da tela.', 'Leia atenciosamente, porque elas desaparecerão em  2,5 segundos.'],
             'words': {
-                'left': 'Tartaruga',
-                'right': 'Gato'
+                'left': 'tartaruga',
+                'right': 'gato'
             }
         },
         'slide2': {
@@ -56,12 +57,13 @@ var instructions = {
         },
         'slide3': {
             'title': 'Identifique todas as imagens.',
-            'subtitles': ['Serão 96 pares de palavras e 96 imagens. Mas será rápido.', 'Após clicar em INICIAR, você terá 10 segundos para posicionar os dedos sobre as teclas Q e P'],
+            'subtitles': ['Serão 96 pares de palavras e 96 imagens. Mas será rápido.', 'Após clicar em INICIAR, você terá 10 segundos para se preparar'],
             'keys': {
                 'left': 'Q',
                 'right': 'P'
             }
-        }
+        },
+        'getready': "Prepare-se... Esteja pronto para pressionar as teclas Q e P"
     }
 };
 
@@ -76,9 +78,10 @@ angular.module('perceptionClientApp')
     .controller('InstructionsCtrl', function($scope, $rootScope) {
 
         $rootScope.settings = $rootScope.settings || {
-            name: "Arthur",
+            name: "Arthur Camara",
             email: "arthurcamara@gmail.com",
-            language: "portuguese"
+            language: "portuguese",
+            firstName: "Arthur"
         }
 
         if (!$rootScope.settings) {
@@ -125,9 +128,8 @@ angular.module('perceptionClientApp')
         $rootScope.prev = "instructions";
 
         //instructions
-        $scope.instructions = instructions[$rootScope.settings.language] || instructions['english'];
-        var firstName = $rootScope.settings.name.split(" ")[0];
-        $scope.firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
+        $scope.instructions = $rootScope.instructions = instructions[$rootScope.settings.language] || instructions['english'];
+        $scope.firstName = $rootScope.settings.firstName; 
 
         //slide control
         $scope.slide = 1;
@@ -145,6 +147,18 @@ angular.module('perceptionClientApp')
             calculateProgress();
         };
 
+        function keypress(activate, callback) {
+            $(document).unbind('keypress');
+            if(activate) {
+                $(document).bind('keypress', function(event) {
+                    var pressed = false;
+                    if(event.which == 13 && typeof callback === 'function') {
+                        callback();
+                    }
+                });
+            }
+        }
+
         $(function() {
             clearIntervals();
             hideRoutine();
@@ -153,5 +167,17 @@ angular.module('perceptionClientApp')
                 hideRoutine();
                 keysRoutine();
             }, 4000);
+
+            //Enter should also activate next slide
+            keypress(true, function() {
+                if ($scope.slide < $scope.num_slides) {
+                    $scope.nextSlide();
+                    $scope.$apply();
+                }
+                else {
+                    keypress(false);
+                    location.href = "#/experiment";
+                }
+            });
         });
     });

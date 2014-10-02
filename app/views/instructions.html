@@ -1,5 +1,5 @@
 <div id="progress" style="width: {{progress}}%"></div>
-<div class="slideshow" ng-keyup="$event.keyCode == 13 && nextSlide()">
+<div class="slideshow">
     <div class="explanation">{{firstName}}, {{instructions.explanation}}</div>
     <div class="slides">
         <section ng-class="{current: slide==1}">
@@ -66,9 +66,9 @@
         <span class="glyphicon glyphicon-wrench"></span> Settings</a>
 	<button ng-if="slide>1" ng-click="prevSlide()" class="ss-previous btn btn-lg btn-default">
         <span class="glyphicon glyphicon-chevron-left"></span> {{instructions.previous}}</button>
-    <button ng-if="slide<num_slides" ng-click="nextSlide()" class="ss-continue btn btn-lg btn-primary">
+    <button ng-if="slide<num_slides" ng-click="nextSlide()" data-help="{{instructions.press_enter}}" class="ss-continue btn btn-lg btn-primary">
         {{instructions.continue}} <span class="glyphicon glyphicon-chevron-right"></span></button>
 
-    <a ng-if="slide==num_slides" ng-href="#/experiment" class="ss-start btn btn-lg btn-success">
+    <a ng-if="slide==num_slides" ng-href="#/experiment" data-help="{{instructions.press_enter}}" class="ss-start btn btn-lg btn-success">
         <span class="glyphicon glyphicon-ok"></span> {{instructions.start}}</a>
 </div>
