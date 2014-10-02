@@ -1,1 +1,35 @@
-<h1>Here comes the experiment!</h1>
+<div id="progress" style="width: {{progress}}%"></div>
+<div class="experiment">
+    <div class="introduction" ng-if="countdown >= 0 && finished == false">
+        <div class="explanation">{{explanation}}</div>
+        <div class="counter">{{countdown}}</div>
+    </div>
+    <div class="slides" ng-if="countdown < 0 && finished == false">
+        <section ng-if="show_words == true">
+            <div class="experiment-words">
+                <span class="word left">{{words.left}}</span>
+                <span class="word right">{{words.right}}</span>
+                <div class="pie-wrapper">
+                    <div class="pie spinner"></div>
+                    <div class="pie filler"></div>
+                    <div class="mask"></div>
+                </div>
+            </div>
+        </section>
+        <section ng-if="show_words == false">
+            <div class="experiment-imagescreen">
+                <span class="image">{{image}}</span>
+            </div>
+        </section>
+    </div>
+    <div class="finishing" ng-if="finished == true">
+        <h1 class="title">Sending data...</h1>
+        <div class="pie-wrapper">
+            <div class="pie spinner"></div>
+            <div class="pie filler"></div>
+            <div class="mask"></div>
+        </div>
+    </div>
+
+
+</div>
