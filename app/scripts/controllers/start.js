@@ -15,18 +15,9 @@ angular.module('perceptionClientApp')
   		return;
   	}
 
-  	$scope.languages = [
-  		{ value: "english", name: "English", image: "United-States-of-America.png"},
-  		{ value: "swedish", name: "Swedish", image: "Sweden.png"},
-  		{ value: "chinese", name: "Chinese", image: "China.png"},
-  		{ value: "german", name: "German", image: "Germany.png"},
-  		{ value: "portuguese", name: "Portuguese", image: "Brazil.png"},
-  	];
-
   	$scope.form = {
-  		name: "",
   		email: "",
-  		language: ""
+  		blindness: ""
   	};
 
     $scope.initStart = function() {
@@ -37,17 +28,21 @@ angular.module('perceptionClientApp')
     };
 
     $scope.submitForm = function() {
-    	$rootScope.settings = $scope.form;
-
-      //firstName
-      var firstName = $rootScope.settings.name.split(" ")[0];
-      $rootScope.settings.firstName = firstName.charAt(0).toUpperCase() + firstName.slice(1);
-
+    	$rootScope.settings.email = $scope.form.email;
+      $rootScope.settings.blindness = $scope.form.blindness;
       //next page
     	location.href="#/instructions";
     }
 
     $scope.initStart();
+
+    $scope.questions_title = $rootScope.text.questions_title;
+    $scope.questions_email = $rootScope.text.questions_email;
+    $scope.questions_email_info = $rootScope.text.questions_email_info;
+    $scope.questions_blind = $rootScope.text.questions_blind;
+    $scope.questions_blind_1 = $rootScope.text.questions_blind_1;
+    $scope.questions_blind_2 = $rootScope.text.questions_blind_2;
+    $scope.questions_confirm = $rootScope.text.questions_confirm;
 
     $rootScope.prev = "start";
 
