@@ -1,5 +1,7 @@
 'use strict';
 
+var API_BASE = 'http://localhost:3000/';
+
 /**
  * @ngdoc overview
  * @name perceptionClientApp
@@ -22,6 +24,10 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
+      })
+      .when('/intro', {
+        templateUrl: 'views/intro.html',
+        controller: 'IntroCtrl'
       })
       .when('/start', {
         templateUrl: 'views/start.html',
