@@ -1,38 +1,12 @@
-<div class="container">
-    <div class="header text-center">
-        <h1 class="text-muted">Object Recognition Experiment</h1>
-    </div>
+<div class="container" id="language_selector">
+    <h1>Please, choose your <strong>native</strong> language:</h1>
 
-    <div class="jumbotron">
-        <div class="row">
-            <div class="col-md-4 col-xs-12">
-                <span class="icon glyphicon glyphicon-thumbs-up "></span>
-                <p>
-                    <strong>First of all, thank you</strong> for your interest in being a participant in our experiment. We are really happy you can spend some time contributing to our studies.</p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <span class="icon glyphicon glyphicon-tree-deciduous "></span>
-                <p>
-                    <strong>We are investigating object recognition</strong> and we invite you to perform a very simple task. Anyone can do it! Please, use a laptop or computer.</p>
-            </div>
-            <div class="col-md-4 col-xs-12">
-                <span class="icon glyphicon glyphicon-time "></span>
-                <p>You will need
-                    <strong>approximately 20 minutes.</strong> Also, we kindly ask you to concentrate fully on the experiment during this time. We promise to make it enjoyable.
-                </p>
-            </div>
-        </div>
-        <div class="row">
-            <p>
-                <a class="btn btn-primary btn-lg" ng-click="goFullscreen()" ng-href="#/start" role="button">
-                    <span class="glyphicon glyphicon-ok "></span> Begin Experiment</a>
-            </p>
+    <div class="languages">
+        <div class="language" ng-repeat="lang in languages" ng-click="selectLanguage(lang.value)">
+            <div id="{{lang.value}}" ng-model="form.language" name="language" class="flag flag{{lang.value}}" data-image="{{lang.image}}"></div>
+            <span class="flag_label">{{lang.name}}</label>
         </div>
     </div>
 
-    <div class="footer text-center">
-        <p>
-            <span class="glyphicon glyphicon-heart"></span> Made with love by <a href="mailto:acvs@kth.se">Arthur Camara</a>, <a href="mailto:acvds@kth.se">Shuo Feng</a> and <a href="mailto:acvs@kth.se">Charles Windlin</a> at <a href="http://www.kth.se">KTH</a>
-        </p>
-    </div>
+    <p class="reminder">Only native speakers of the languages listed above should participate.</p>
 </div>
