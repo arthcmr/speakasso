@@ -1,6 +1,6 @@
 'use strict';
 
-var API_BASE = 'http://localhost:3000/';
+var API_BASE = 'http://178.62.207.54:3000/';
 
 /**
  * @ngdoc overview
