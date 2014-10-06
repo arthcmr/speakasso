@@ -4,22 +4,24 @@
         <ol class="fs-fields">
             <li>
                 <label class="fs-field-label fs-anim-upper" for="q2" data-info="{{questions_email_info}}">{{questions_email}}</label>
-                <input class="fs-anim-lower" id="q2" name="q2" type="email" placeholder="example@email.com" ng-model="form.email" required/>
+                <input class="fs-anim-lower" id="q2" name="q2" type="email" placeholder="example@email.com" value="{{form.email}}" ng-model="form.email" required/>
             </li>
             <li data-input-trigger>
                 <label class="fs-field-label fs-anim-upper">{{questions_blind}}</label>
                 <div class="fs-radio-group fs-radio-custom clearfix fs-anim-lower">
                     <span>
-                        <input id="yes" ng-model="form.blindness" name="blindness" type="radio" value="yes"/><label for="yes" class="blindness-yes">{{questions_blind_1}}</label>
+                        <input id="no" ng-model="form.blindness" name="blindness" ng-checked="form.blindness=='false'" class="blindness-no" type="radio" value="false"/><label class="blindness-no" for="no">{{questions_blind_2}}</label>
                     </span>
                     <span>
-                        <input id="no" ng-model="form.blindness" name="blindness" type="radio" value="no"/><label for="no" class="blindness-no">{{questions_blind_2}}</label>
+                        <input id="yes" ng-model="form.blindness" name="blindness" ng-checked="form.blindness=='true'"class="blindness-yes" type="radio" value="true"/><label class="blindness-yes" for="yes">{{questions_blind_1}}</label>
                     </span>
                 </div>
             </li>
         </ol>
         <!-- /fs-fields -->
-        <button class="fs-submit btn btn-lg btn-success" type="submit"><span class="fa fa-ok"></span> {{questions_confirm}}</button>
+        <p><button class="fs-submit btn btn-lg btn-success" type="submit"><span class="fa fa-laptop"></span> {{questions_confirm}}</button></p>
+        <p><button ng-if="finished" ng-click="back()" class="fs-back btn btn-lg"><span class="fa fa-chevron-left"></span> {{back_btn}}</button></p>
     </form>
+    <button ng-if="!finished" ng-click="nextSlide()" class="fs-continue2 btn btn-lg btn-primary" data-help="{{press_enter}}">{{continue_btn}} <span class="fa fa-chevron-right"></span></button>
     <!-- /fs-form -->
 </div>

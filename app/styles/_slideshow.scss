@@ -103,6 +103,60 @@
             display: block;
         }
     }
+    .brightness {
+        -webkit-animation: getbright 3s infinite;
+        animation: getbright 3s infinite;
+
+        .arrow {
+            position: absolute;
+            left: 50%;
+            font-size: 4em;
+            margin-left: -26px;
+            color: #999;
+
+            -webkit-animation: animateup 3s infinite;
+            animation: animateup 3s infinite;
+        }
+    }
+
+    @-webkit-keyframes animateup {
+        from {
+            top: 130px;
+            @include opacity(0);
+        }
+        to {
+            top: 60px;
+            @include opacity(1);
+        }
+    }
+    @keyframes animateup {
+        from {
+            top: 130px;
+            @include opacity(0);
+        }
+        to {
+            top: 60px;
+            @include opacity(1);
+        }
+    }
+    
+    @-webkit-keyframes getbright {
+        from {
+            background: #cccccc;
+        }
+        to {
+            background: #ffffff;
+        }
+    }
+    @keyframes getbright {
+        from {
+            background: #cccccc;
+        }
+        to {
+            background: #ffffff;
+        }
+    }
+    
     .words {
         padding-top: 80px;
         .word {

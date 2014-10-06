@@ -16,16 +16,30 @@ angular.module('perceptionClientApp')
   	}
 
   	$scope.form = {
-  		email: "",
-  		blindness: ""
+  		email: $rootScope.settings.email || "",
+  		blindness: $rootScope.settings.email || ""
   	};
+
+    var form;
 
     $scope.initStart = function() {
 		$(function() {
 			var formWrap = document.getElementById( 'fs-form-wrap' );
-			new FForm( formWrap, {});
+			form = new FForm( formWrap, {
+        onReview: function() {
+          $scope.finished = true;
+          $scope.$apply();
+        }
+      });
 		});
     };
+
+    $scope.nextSlide = function() {
+      form._nextField();
+    }
+    $scope.back = function() {
+      location.href="#/";
+    }
 
     $scope.submitForm = function() {
     	$rootScope.settings.email = $scope.form.email;
@@ -35,6 +49,7 @@ angular.module('perceptionClientApp')
     }
 
     $scope.initStart();
+    $scope.finished = false;
 
     $scope.questions_title = $rootScope.text.questions_title;
     $scope.questions_email = $rootScope.text.questions_email;
@@ -43,6 +58,9 @@ angular.module('perceptionClientApp')
     $scope.questions_blind_1 = $rootScope.text.questions_blind_1;
     $scope.questions_blind_2 = $rootScope.text.questions_blind_2;
     $scope.questions_confirm = $rootScope.text.questions_confirm;
+    $scope.continue_btn = $rootScope.text.continue_btn;
+    $scope.press_enter = $rootScope.text.press_enter;
+    $scope.back_btn = $rootScope.text.back_btn;
 
     $rootScope.prev = "start";
 

@@ -1,72 +1,5 @@
 'use strict';
 
-var instructions = {
-    'english': {
-        'continue': 'Continue',
-        'press_enter': 'or press ENTER',
-        'previous': 'Previous',
-        'start': 'Start',
-        'explanation': 'here are a few instructions. Read carefully.',
-        'slide1': {
-            'title': 'Two words will appear on the screen:',
-            'subtitles': ['One word will be on the left side and one word will be on the right side.', 'Read them carefully, because they will disappear after 2.5 seconds.'],
-            'words': {
-                'left': 'turtle',
-                'right': 'cat'
-            }
-        },
-        'slide2': {
-            'title': 'An image will be shown:',
-            'subtitles': ['If the image corresponds to the left word, press Q.', 'If the image corresponds to the right word, press P.'],
-            'keys': {
-                'left': 'Q',
-                'right': 'P'
-            }
-        },
-        'slide3': {
-            'title': 'Identify all images.',
-            'subtitles': ['There will be 96 pairs of words and images. But it will be quick.', 'After you click START, you will be given 10 seconds to get ready'],
-            'keys': {
-                'left': 'Q',
-                'right': 'P'
-            }
-        },
-        'getready': "Get ready... Position your fingers over the letters Q and P"
-    },
-    'portuguese': {
-        'continue': 'Próximo',
-        'press_enter': 'ou pressione ENTER',
-        'previous': 'Anterior',
-        'start': 'Iniciar',
-        'explanation': 'aqui vão algumas instruções. Leia com atenção.',
-        'slide1': {
-            'title': 'Duas palavras aparecerão na tela:',
-            'subtitles': ['Uma palavra no lado esquerdo e uma palavra no lado direito da tela.', 'Leia atenciosamente, porque elas desaparecerão em  2,5 segundos.'],
-            'words': {
-                'left': 'tartaruga',
-                'right': 'gato'
-            }
-        },
-        'slide2': {
-            'title': 'Uma imagem será mostrada:',
-            'subtitles': ['Se a imagem corresponde à palavra da esquerda, pressione Q.', 'Se a imagem corresponde à palavra da direita, pressione P.'],
-            'keys': {
-                'left': 'Q',
-                'right': 'P'
-            }
-        },
-        'slide3': {
-            'title': 'Identifique todas as imagens.',
-            'subtitles': ['Serão 96 pares de palavras e 96 imagens. Mas será rápido.', 'Após clicar em INICIAR, você terá 10 segundos para se preparar'],
-            'keys': {
-                'left': 'Q',
-                'right': 'P'
-            }
-        },
-        'getready': "Prepare-se... Esteja pronto para pressionar as teclas Q e P"
-    }
-};
-
 /**
  * @ngdoc function
  * @name perceptionClientApp.controller:AboutCtrl
@@ -77,14 +10,7 @@ var instructions = {
 angular.module('perceptionClientApp')
     .controller('InstructionsCtrl', function($scope, $rootScope) {
 
-        $rootScope.settings = $rootScope.settings || {
-            name: "Arthur Camara",
-            email: "arthurcamara@gmail.com",
-            language: "portuguese",
-            firstName: "Arthur"
-        }
-
-        if (!$rootScope.settings) {
+        if (!$rootScope.settings || !$rootScope.experiment) {
             location.href = "#/";
             return;
         }
@@ -127,13 +53,9 @@ angular.module('perceptionClientApp')
 
         $rootScope.prev = "instructions";
 
-        //instructions
-        $scope.instructions = $rootScope.instructions = instructions[$rootScope.settings.language] || instructions['english'];
-        $scope.firstName = $rootScope.settings.firstName; 
-
         //slide control
         $scope.slide = 1;
-        $scope.num_slides = 3;
+        $scope.num_slides = 4;
         calculateProgress();
 
         $scope.prevSlide = function() {
@@ -149,15 +71,46 @@ angular.module('perceptionClientApp')
 
         function keypress(activate, callback) {
             $(document).unbind('keypress');
-            if(activate) {
+            if (activate) {
                 $(document).bind('keypress', function(event) {
                     var pressed = false;
-                    if(event.which == 13 && typeof callback === 'function') {
+                    if (event.which == 13 && typeof callback === 'function') {
                         callback();
                     }
                 });
             }
         }
+
+        //use the time of reading the instructions to preload images
+        function preloadImages(sources) {
+            var images = [];
+            for (var i = 0, length = $rootScope.experiment.length; i < length; i++) {
+                images[i] = new Image();
+                images[i].src = API_BASE + $rootScope.experiment[i].image;
+                console.log(images[i].src);
+            }
+        }
+
+        preloadImages();
+
+        //strings
+        $scope.instructions_title = $rootScope.text.instructions_title;
+        $scope.instructions_1_title = $rootScope.text.instructions_1_title;
+        $scope.instructions_1_text1 = $rootScope.text.instructions_1_text1;
+        $scope.instructions_2_title = $rootScope.text.instructions_2_title;
+        $scope.instructions_2_text1 = $rootScope.text.instructions_2_text1;
+        $scope.instructions_3_title = $rootScope.text.instructions_3_title;
+        $scope.instructions_3_text1 = $rootScope.text.instructions_3_text1;
+        $scope.instructions_3_text2 = $rootScope.text.instructions_3_text2;
+        $scope.intructions_3_key1 = $rootScope.text.intructions_3_key1;
+        $scope.intructions_3_key2 = $rootScope.text.intructions_3_key2;
+        $scope.instructions_4_title = $rootScope.text.instructions_4_title;
+        $scope.instructions_4_text1 = $rootScope.text.instructions_4_text1;
+        $scope.instructions_4_text2 = $rootScope.text.instructions_4_text2;
+        $scope.start_btn = $rootScope.text.start_btn;
+        $scope.continue_btn = $rootScope.text.continue_btn;
+        $scope.press_enter = $rootScope.text.press_enter;
+        $scope.back_btn = $rootScope.text.back_btn;
 
         $(function() {
             clearIntervals();
@@ -173,8 +126,7 @@ angular.module('perceptionClientApp')
                 if ($scope.slide < $scope.num_slides) {
                     $scope.nextSlide();
                     $scope.$apply();
-                }
-                else {
+                } else {
                     keypress(false);
                     location.href = "#/experiment";
                 }

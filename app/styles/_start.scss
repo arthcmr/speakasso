@@ -59,6 +59,7 @@ $colorInput: $colorBlue;
 	height: 100%;
 	color: #3b3f45;
 	font-size: 1.2em;
+	
 }
 
 .fs-form-overview .fs-fields::before {
@@ -68,6 +69,10 @@ $colorInput: $colorBlue;
 	content: 'Review & confirm your settings';
 	font-weight: 700;
 	font-size: 1.85em;
+}
+
+.fs-form-overview .fs-fields {
+	display: none;
 }
 
 .fs-form-overview .explanation {
@@ -190,28 +195,7 @@ button:focus {
 	padding: 0 5px 1em 0;
 	font-weight: 700;
 	pointer-events: none;
-}
-
-.fs-form-full .fs-fields > li label[data-info]::after {
-	position: relative;
-	display: inline-block;
-	margin-left: 10px;
-	margin-top: 13px;
-	width: 24px;
-	height: 24px;
-	border: 2px solid rgba(0,0,0,0.4);
-	color: rgba(0,0,0,0.4);
-	border-radius: 50%;
-	content: 'i';
-	vertical-align: top;
-	text-align: center;
-	font-weight: 700;
-	font-style: italic;
-	font-size: 14px;
-	font-family: Georgia, serif;
-	line-height: 20px;
-	cursor: pointer;
-	pointer-events: auto;
+	width: 70%;
 }
 
 .fs-form-full .fs-fields > li label[data-info]::before {
@@ -223,18 +207,8 @@ button:focus {
 	content: attr(data-info);
 	font-size: 0.4em;
 	color: #6a7b7e;
-    opacity: 0;
-    -webkit-transition: opacity 0.3s, -webkit-transform 0.3s;
-    transition: opacity 0.3s, transform 0.3s;
-    -webkit-transform: translate3d(0,-5px,0);
-    transform: translate3d(0,-5px,0);
-    pointer-events: none;
-}
-
-.fs-form-full .fs-fields > li label[data-info]:hover::before {
     opacity: 1;
-    -webkit-transform: translate3d(0,0,0);
-    transform: translate3d(0,0,0);
+    pointer-events: none;
 }
 
 .fs-form-full .fs-fields > li label:hover ~ .fs-info,
@@ -278,6 +252,10 @@ button:focus {
 	font-size: 1.2em;
 }
 
+.fs-radio-group.fs-radio-custom {
+	// text-align: center;
+}
+
 .fs-fields .fs-radio-custom input[type="radio"] {
 	position: absolute;
 	display: block;
@@ -290,7 +268,7 @@ button:focus {
 }
 
 .fs-fields > li .fs-radio-custom span {
-	float: left;
+	// float: left;
 	position: relative;
 	margin-right: 1.5%;
 	padding: 10px;
@@ -299,6 +277,7 @@ button:focus {
 	text-align: center;
 	font-weight: 700;
 	font-size: 50%;
+	display: inline-block;
 }
 
 .fs-fields > li .fs-radio-custom span label {
@@ -337,22 +316,16 @@ button:focus {
 	transition: opacity 0.2s;
 	-webkit-transform: translate(-50%,-50%);
 	transform: translate(-50%,-50%);
+	font-family: FontAwesome;
+	font-size: 3em;
+   	vertical-align: middle;
 }
 
-.fs-fields .fs-radio-custom label.radio-english::after {
-	background-image: url(../images/flags/United-States-of-America.png);
+.fs-fields .fs-radio-custom label.blindness-yes::after {
+	content: "\f00c";
 }
-.fs-fields .fs-radio-custom label.radio-swedish::after {
-	background-image: url(../images/flags/Sweden.png);
-}
-.fs-fields .fs-radio-custom label.radio-chinese::after {
-	background-image: url(../images/flags/China.png);
-}
-.fs-fields .fs-radio-custom label.radio-german::after {
-	background-image: url(../images/flags/Germany.png);
-}
-.fs-fields .fs-radio-custom label.radio-portuguese::after {
-	background-image: url(../images/flags/Brazil.png);
+.fs-fields .fs-radio-custom label.blindness-no::after {
+	content: "\f00d";
 }
 
 .fs-fields .fs-radio-custom label:hover::after,
@@ -615,7 +588,7 @@ button:focus {
 
 .fs-form-overview .fs-submit,
 .no-js .fs-form .fs-submit,
-button.fs-continue {
+button.fs-continue, button.fs-continue2 {
 	display: block;
 	position: absolute;
 	right: 0;
@@ -624,7 +597,25 @@ button.fs-continue {
 	font-size: 1.25em;
 }
 
-.fs-continue::after {
+.fs-form-overview .fs-submit {
+	right: auto;
+	bottom: auto;
+	position: static;
+	margin: 0 auto;
+	margin-top: 150px;
+	font-size: 2em;
+}
+
+.fs-form-overview .fs-back {
+	right: auto;
+	bottom: auto;
+	position: static;
+	margin: 0 auto;
+	margin-top: 30px;
+	display: block;
+}
+
+.fs-continue2::after {
 	position: absolute;
 	top: 100%;
 	left: 0;
@@ -633,7 +624,7 @@ button.fs-continue {
 	text-align: center;
 	background: transparent;
 	color: rgba(0,0,0,0.3);
-	content: 'or press ENTER';
+	content: attr(data-help);
 	font-size: 0.65em;
 	pointer-events: none;
 }
@@ -655,7 +646,7 @@ button.fs-continue {
 }
 
 .fs-message-error.fs-show {
-	opacity: 1;
+	// opacity: 1;
 	-webkit-transition: -webkit-transform 0.3s, opacity 0.3s;
 	transition: transform 0.3s, opacity 0.3s;
 	-webkit-transform: translate3d(-50%,0,0);

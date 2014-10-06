@@ -1,6 +1,9 @@
 .macbook {
-
-    margin-top: 50px;
+    
+    position: absolute;
+    bottom: 150px;
+    left: 50%;
+    margin-left: -275px;
 
     .macscreenwrap {
         @include box-sizing(border-box);
@@ -11,7 +14,6 @@
         padding: 15px;
         position: relative;
         margin: 0 auto;
-
     }
     .macscreen {
         width: 100%;

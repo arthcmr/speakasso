@@ -11,40 +11,13 @@ angular.module('perceptionClientApp')
     .controller('ExperimentCtrl', function($scope, $rootScope) {
 
         //force settings and instructions to be present
-        if (!$rootScope.settings || !$rootScope.instructions) {
+        if (!$rootScope.settings || !$rootScope.experiment) {
             location.href = "#/";
             return;
         }
 
         var current = 0,
-            words = [{
-                left: "turtle",
-                right: "bird",
-                image: "bird",
-                high: true,
-                color: true,
-                correct: 'l',
-                response: undefined,
-                time: undefined
-            }, {
-                left: "car",
-                right: "train",
-                image: "car",
-                high: true,
-                color: false,
-                correct: 'l',
-                response: undefined,
-                time: undefined
-            }, {
-                left: "banana",
-                right: "apple",
-                image: "apple",
-                high: false,
-                color: true,
-                correct: 'r',
-                response: undefined,
-                time: undefined
-            }, ],
+            words = $rootScope.experiment,
             total = words.length;
 
         //calculate progress
@@ -145,7 +118,8 @@ angular.module('perceptionClientApp')
 
         clearIntervals();
         //initialize experiment
-        $scope.explanation = $rootScope.instructions.getready;
+        $scope.get_ready = $rootScope.text.get_ready;
+        $scope.sending_data = $rootScope.text.sending_data;
         $scope.countdown = 10;
         $scope.progress = 0;
         $scope.finished = false;

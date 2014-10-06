@@ -1,4 +1,6 @@
 /**
+ * ADAPTED BY @arthurcamara1 FROM:
+ *
  * fullscreenForm.js v1.0.0
  * http://www.codrops.com
  *
@@ -116,7 +118,7 @@
 
 		// continue button (jump to next field)
 		this.ctrlContinue = createElement( 'button', { cName : 'fs-continue btn btn-lg btn-primary', inner : '<span class="glyphicon glyphicon-chevron-right"></span> Continue', appendTo : this.ctrls } );
-		this._showCtrl( this.ctrlContinue );
+		// this._showCtrl( this.ctrlContinue );
 
 		// navigation dots
 		if( this.options.ctrlNavDots ) {

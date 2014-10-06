@@ -1,27 +1,33 @@
 <div id="progress" style="width: {{progress}}%"></div>
 <div class="slideshow">
-    <div class="explanation">{{firstName}}, {{instructions.explanation}}</div>
+    <div class="explanation">{{instructions_title}}</div>
     <div class="slides">
         <section ng-class="{current: slide==1}">
-            <h1 class="ss-title ss-anim-down">{{instructions.slide1.title}}</h1>
-            <h2 ng-repeat="subtitle in instructions.slide1.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
+            <h1 class="ss-title ss-anim-down">{{instructions_1_title}}</h1>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_1_text1}}</h2>
         </section>
         <section ng-class="{current: slide==2}">
-            <h1 class="ss-title ss-anim-down">{{instructions.slide2.title}}</h1>
-            <h2 ng-repeat="subtitle in instructions.slide2.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
-
-            <div class="keys animated-keys ss-anim-up">
-            	<span class="key left">{{instructions.slide2.keys.left}}</span>
-            	<span class="key right">{{instructions.slide2.keys.right}}</span>
-            </div>
+            <h1 class="ss-title ss-anim-down">{{instructions_2_title}}</h1>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_2_text1}}</h2>
         </section>
         <section ng-class="{current: slide==3}">
-            <h1 class="ss-title ss-anim-down">{{instructions.slide3.title}}</h1>
-            <h2 ng-repeat="subtitle in instructions.slide3.subtitles" class="ss-subtitle ss-anim-down">{{subtitle}}</h2>
+            <h1 class="ss-title ss-anim-down">{{instructions_3_title}}</h1>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_3_text1}}</h2>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_3_text2}}</h2>
+
+            <div class="keys animated-keys ss-anim-up">
+            	<span class="key left">{{intructions_3_key1}}</span>
+            	<span class="key right">{{intructions_3_key2}}</span>
+            </div>
+        </section>
+        <section ng-class="{current: slide==4}">
+            <h1 class="ss-title ss-anim-down">{{instructions_4_title}}</h1>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_4_text1}}</h2>
+            <h2 class="ss-subtitle ss-anim-down">{{instructions_4_text2}}</h2>
 
             <div class="keys ss-anim-up">
-            	<span class="key left">{{instructions.slide2.keys.left}}</span>
-            	<span class="key right">{{instructions.slide2.keys.right}}</span>
+            	<span class="key left">{{intructions_3_key1}}</span>
+            	<span class="key right">{{intructions_3_key2}}</span>
             </div>
         </section>
     </div>
@@ -29,10 +35,13 @@
     <div class="macbook ss-anim-up">
         <div class="macscreenwrap">
             <div class="macscreen">
-                <div class="screen" ng-class="{current: slide==1}">
+                <div class="screen brightness" ng-class="{current: slide==1}">
+                    <span class="arrow fa fa-arrow-up"></span>
+                </div>
+                <div class="screen" ng-class="{current: slide==2}">
                     <div class="words">
-                        <span class="word left">{{instructions.slide1.words.left}}</span>
-                        <span class="word right">{{instructions.slide1.words.right}}</span>
+                        <span class="word left">turtle</span>
+                        <span class="word right">whale</span>
                         <div class="pie-wrapper">
                             <div class="pie spinner"></div>
                             <div class="pie filler"></div>
@@ -40,12 +49,12 @@
                         </div>
                     </div>
                 </div>
-                <div class="screen" ng-class="{current: slide==2}">
+                <div class="screen" ng-class="{current: slide==3}">
                     <div class="imagescreen">
                         <span class="image"></span>
                     </div>
                 </div>
-                <div class="screen" ng-class="{current: slide==3}">
+                <div class="screen" ng-class="{current: slide==4}">
                     <div class="counter">
                     	<div id="counter">
                         </div>
@@ -63,12 +72,12 @@
 
 	
 	<a ng-if="slide==1" ng-href="#/start" class="ss-previous btn btn-lg btn-default">
-        <span class="glyphicon glyphicon-wrench"></span> Settings</a>
+        <span class="glyphicon glyphicon-wrench"></span> {{back_btn}}</a>
 	<button ng-if="slide>1" ng-click="prevSlide()" class="ss-previous btn btn-lg btn-default">
-        <span class="glyphicon glyphicon-chevron-left"></span> {{instructions.previous}}</button>
-    <button ng-if="slide<num_slides" ng-click="nextSlide()" data-help="{{instructions.press_enter}}" class="ss-continue btn btn-lg btn-primary">
-        {{instructions.continue}} <span class="glyphicon glyphicon-chevron-right"></span></button>
+        <span class="glyphicon glyphicon-chevron-left"></span> {{back_btn}}</button>
+    <button ng-if="slide<num_slides" ng-click="nextSlide()" data-help="{{press_enter}}" class="ss-continue btn btn-lg btn-primary">
+        {{continue_btn}} <span class="glyphicon glyphicon-chevron-right"></span></button>
 
-    <a ng-if="slide==num_slides" ng-href="#/experiment" data-help="{{instructions.press_enter}}" class="ss-start btn btn-lg btn-success">
-        <span class="glyphicon glyphicon-ok"></span> {{instructions.start}}</a>
+    <a ng-if="slide==num_slides" ng-href="#/experiment" data-help="{{press_enter}}" class="ss-start btn btn-lg btn-success">
+        <span class="glyphicon glyphicon-ok"></span> {{start_btn}}</a>
 </div>
