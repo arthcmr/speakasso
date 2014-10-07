@@ -44,13 +44,12 @@
             padding-top: 45px;
             .image {
                 display: block;
-                width: 640px;
-                height: 480px;
+                width: 800px;
+                height: 600px;
                 margin: 0 auto;
-                background-image: url(../images/turtle.png);
-                background-position: center center;
-                background-repeat: no-repeat;
-                background-size: 100%;
+                img {
+                    width: 100%;
+                }
             }
         }
     }

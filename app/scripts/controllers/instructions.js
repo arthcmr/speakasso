@@ -87,7 +87,6 @@ angular.module('perceptionClientApp')
             for (var i = 0, length = $rootScope.experiment.length; i < length; i++) {
                 images[i] = new Image();
                 images[i].src = 'images/images/' + $rootScope.experiment[i].image;
-                console.log(images[i].src);
             }
         }
 

@@ -8,7 +8,7 @@
  * Controller of the perceptionClientApp
  */
 angular.module('perceptionClientApp')
-    .controller('ExperimentCtrl', function($scope, $rootScope) {
+    .controller('ExperimentCtrl', function($scope, $rootScope, $http) {
 
         //force settings and instructions to be present
         if (!$rootScope.settings || !$rootScope.experiment) {
@@ -19,6 +19,14 @@ angular.module('perceptionClientApp')
         var current = 0,
             words = $rootScope.experiment,
             total = words.length;
+
+        /* Just to make it quick */
+        words = [];
+        for (var i = 0; i < 5; i++) {
+            words.push($rootScope.experiment[i]);
+        }
+        total = words.length;
+        /* Just to make it quick */
 
         //calculate progress
         function calculateProgress() {
@@ -49,21 +57,20 @@ angular.module('perceptionClientApp')
         }
 
         function keypress(activate, callback) {
-        	$(document).unbind('keypress');
-        	if(activate) {
-        		$(document).bind('keypress', function(event) {
-        			var pressed = false;
-        			if(event.which == 113 || event.which == 81) {
-        				pressed = 'l';
-        			}
-        			else if(event.which == 112 || event.which == 80) {
-        				pressed = 'r';
-        			}
-        			if(pressed && typeof callback === 'function') {
-        				callback(pressed, event.timeStamp);
-        			}
-        		});
-        	}
+            $(document).unbind('keypress');
+            if (activate) {
+                $(document).bind('keypress', function(event) {
+                    var pressed = false;
+                    if (event.which == 113 || event.which == 81) {
+                        pressed = 'l';
+                    } else if (event.which == 112 || event.which == 80) {
+                        pressed = 'r';
+                    }
+                    if (pressed && typeof callback === 'function') {
+                        callback(pressed, event.timeStamp);
+                    }
+                });
+            }
         }
 
         function showWords() {
@@ -80,40 +87,61 @@ angular.module('perceptionClientApp')
         }
 
         function showImage() {
-			$scope.show_words = false;
-            $scope.image = words[current].image;
+            $scope.show_words = false;
+            $scope.image = 'images/images/' + words[current].image;
             $scope.$apply();
             var time = new Date().getTime();
             keypress(true, function(response, timestamp) {
-            	words[current].response = response;
-            	words[current].time = timestamp - time;
-            	next();
+                words[current].response = response;
+                words[current].time = timestamp - time;
+                next();
             });
         }
 
         function next() {
-        	keypress(false);
-        	current++;
-        	calculateProgress();
-        	if(current == total) {
-        		finish();
-        	}
-        	else {
-        		showWords();
-        	}
+            keypress(false);
+            current++;
+            calculateProgress();
+            if (current == total) {
+                finish();
+            } else {
+                showWords();
+            }
         }
 
         function finish() {
-        	$scope.finished = true;
-        	$scope.$apply();
-        	console.log("FINISHED!");
-        	console.log(words);
+            $scope.finished = true;
+            $scope.$apply();
+            console.log("FINISHED!");
 
-        	//emulate sending data
-        	setTimeout(function() {
-        		$rootScope.results = words;
-        		location.href = '#/thankyou';
-        	}, 5000);
+            $rootScope.results = {
+                email: $rootScope.settings.email,
+                blindness: $rootScope.settings.blindness,
+                language: $rootScope.settings.language,
+                responses: words
+            };
+
+            $http({
+                method: "post",
+                url: API_BASE + "insert",
+                data: $rootScope.results
+            }).success(function(data) {
+                console.log(data);
+                if(data.success) {
+                    location.href = '#/thankyou';
+                }
+                else if (data.exists) {
+                    alert("Your response can't be recorded because you already participated before. But you can still check your results here! :)");
+                    location.href = '#/thankyou';
+                }
+                else {
+                    alert("Error connecting to the server :( Try again.");
+                    location.href = '#/';
+                }
+            }).error(function(e) {
+                alert("Error connecting to the server! Refresh.");
+                console.log(e);
+            });
         }
 
         clearIntervals();
@@ -129,7 +157,7 @@ angular.module('perceptionClientApp')
             left: "",
             right: ""
         };
-        $scope.image = "";
+        $scope.image = false;
 
         //init
         calculateProgress();

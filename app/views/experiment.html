@@ -18,7 +18,7 @@
         </section>
         <section ng-if="show_words == false">
             <div class="experiment-imagescreen">
-                <span class="image">{{image}}</span>
+                <span class="image" ng-if="image"><img src="{{image}}"/></span>
             </div>
         </section>
     </div>
