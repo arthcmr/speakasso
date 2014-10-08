@@ -20,7 +20,7 @@ angular.module('perceptionClientApp')
             words = $rootScope.experiment,
             total = words.length;
 
-        /* Just to make it quick */
+        /* Just to make it quick * /
         words = [];
         for (var i = 0; i < 5; i++) {
             words.push($rootScope.experiment[i]);
@@ -79,6 +79,7 @@ angular.module('perceptionClientApp')
                 left: words[current].left,
                 right: words[current].right
             };
+            console.log($scope.words);
             $scope.$apply();
 
             setTimeout(function() {
