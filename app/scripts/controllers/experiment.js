@@ -79,7 +79,6 @@ angular.module('perceptionClientApp')
                 left: words[current].left,
                 right: words[current].right
             };
-            console.log($scope.words);
             $scope.$apply();
 
             setTimeout(function() {
@@ -127,7 +126,6 @@ angular.module('perceptionClientApp')
                 url: API_BASE + "insert",
                 data: $rootScope.results
             }).success(function(data) {
-                console.log(data);
                 if(data.success) {
                     location.href = '#/thankyou';
                 }

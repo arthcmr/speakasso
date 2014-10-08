@@ -92,8 +92,6 @@ angular.module('perceptionClientApp')
 
         function drawChartLanguages(data) {
 
-            console.log(data);
-
             var d = [['Language', 'Responses']];
             for(var i in data) {
                 d.push([i, data[i].total]);
