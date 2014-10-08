@@ -23,7 +23,7 @@ angular.module('perceptionClientApp')
             method: "get",
             url: API_BASE + "results",
             params: {
-                q: 'analysis(general,byHCDColor,byLanguage)'
+                q: 'analysis(general,byHCDColor,byLanguage,byWord)'
             }
         }).success(function(data) {
             var processed = processData(data);
@@ -34,6 +34,9 @@ angular.module('perceptionClientApp')
 
             var processed = processDataLanguages(data);
             drawChartLanguages(processed);
+
+            var processed = processDataWords(data);
+            drawChartWords(processed);
 
         }).error(function(e) {
             alert("Error connecting to the server! Refresh.");
@@ -56,20 +59,28 @@ angular.module('perceptionClientApp')
 
         function processDataLanguages(data) {
             var d = data.analysis.byLanguage;
-            for(var i in d) {
+            for (var i in d) {
                 d[i] = d[i].general;
             }
             return d;
         }
 
+        function processDataWords(data) {
+            return data.analysis.byWord;
+        }
+
         function stringError(obj) {
-            return "("+Math.round(obj.incorrect / obj.total * 100)+"%)";
+            return "(" + Math.round(obj.incorrect / obj.total * 100) + "%)";
         }
 
         function drawChart(data) {
 
             var g_data = google.visualization.arrayToDataTable([
-                ['Type', 'Color', { role: 'annotation' }, 'Achromatic', { role: 'annotation' }],
+                ['Type', 'Color', {
+                    role: 'annotation'
+                }, 'Achromatic', {
+                    role: 'annotation'
+                }],
                 ['High', data.hcd.colored.avgTime, data.hcd.colored.error, data.hcd.achromatic.avgTime, data.hcd.achromatic.error],
                 ['Low', data.lcd.colored.avgTime, data.lcd.colored.error, data.lcd.achromatic.avgTime, data.lcd.achromatic.error]
             ]);
@@ -92,8 +103,10 @@ angular.module('perceptionClientApp')
 
         function drawChartLanguages(data) {
 
-            var d = [['Language', 'Responses']];
-            for(var i in data) {
+            var d = [
+                ['Language', 'Responses']
+            ];
+            for (var i in data) {
                 d.push([i, data[i].total]);
             }
 
@@ -111,6 +124,30 @@ angular.module('perceptionClientApp')
             };
 
             var chart = new google.visualization.ColumnChart(document.getElementById('languages_chart'));
+
+            chart.draw(g_data, options);
+        }
+
+        function drawChartWords(data) {
+
+            var d = [
+                ['Word', 'correct responses', 'all responses']
+            ];
+            for (var i in data) {
+                d.push([i, data[i].avgTimeCorrect, data[i].avgTime]);
+            }
+            var g_data = google.visualization.arrayToDataTable(d);
+
+            var options = {
+                title: 'Average recognition time per word (correct, all)',
+                hAxis: {
+                    title: 'Average Time Milliseconds'
+                },
+                colors: ['#428bca', '#999999'],
+                chartArea: {'height': '90%'}
+            };
+
+            var chart = new google.visualization.BarChart(document.getElementById('words_chart'));
 
             chart.draw(g_data, options);
         }
