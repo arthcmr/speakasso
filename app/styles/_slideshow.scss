@@ -200,9 +200,9 @@
     }
 }
 .keys {
-    position: relative;
+    @include absolute(auto, auto, 50%, 50%);
     width: 750px;
-    margin: 0 auto;
+    margin-left: -375px;
     .key {
         @include absolute();
         display: block;
