@@ -67,7 +67,8 @@ angular.module('perceptionClientApp')
                         pressed = 'r';
                     }
                     if (pressed && typeof callback === 'function') {
-                        callback(pressed, event.timeStamp);
+                        var time = new Date().getTime();
+                        callback(pressed, time);
                     }
                 });
             }
@@ -118,7 +119,8 @@ angular.module('perceptionClientApp')
                 email: $rootScope.settings.email,
                 blindness: $rootScope.settings.blindness,
                 language: $rootScope.settings.language,
-                responses: words
+                responses: words,
+                browser: window.navigator.userAgent
             };
 
             $http({
