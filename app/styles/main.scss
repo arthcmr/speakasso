@@ -3,13 +3,10 @@ $icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/boots
 @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
 // endbower
 
-@import "general";
+$color-blue: #428bca;
+
 @import "mixins";
+@import "general";
 @import "timer";
-@import "language";
-@import "intro";
-@import "start";
-@import "slideshow";
-@import "macbook";
-@import "experiment";
-@import "thankyou";
+@import "selection";
+@import "config";

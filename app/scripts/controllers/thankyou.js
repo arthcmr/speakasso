@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name perceptionClientApp.controller:MainCtrl
+ * @name speakassoClientApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the perceptionClientApp
+ * Controller of the speakassoClientApp
  */
-angular.module('perceptionClientApp')
+angular.module('speakassoClientApp')
     .controller('ThankyouCtrl', function($scope, $rootScope) {
 
         if (!$rootScope.settings || !$rootScope.results) {

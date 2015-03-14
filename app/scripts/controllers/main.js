@@ -2,41 +2,33 @@
 
 /**
  * @ngdoc function
- * @name perceptionClientApp.controller:MainCtrl
+ * @name speakassoClientApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the perceptionClientApp
+ * Controller of the speakassoClientApp
  */
-angular.module('perceptionClientApp')
+angular.module('speakassoClientApp')
     .controller('MainCtrl', function($scope, $rootScope) {
 
-        $scope.languages = [{
-            value: "english",
-            name: "English",
-            image: "United-States-of-America.png"
+        $scope.painters = [{
+            value: "leonardo",
+            name: "Leonardo",
+            image: "images/leonardo.jpg",
+            description: "The ephemeral nature of speech represented through deformed rings",
+            tags: ["energy", "color", "expressiveness"]
         }, {
-            value: "swedish",
-            name: "Swedish",
-            image: "Sweden.png"
-        }, {
-            value: "chinese",
-            name: "Chinese",
-            image: "China.png"
-        }, {
-            value: "german",
-            name: "German",
-            image: "Germany.png"
-        }, {
-            value: "portuguese",
-            name: "Portuguese",
-            image: "Brazil.png"
-        }, ];
+            value: "picasso",
+            name: "Picasso",
+            image: false,
+            description: "Like Heraclitus' river, this meandering stream shows the everchanging flow of conversations",
+            tags: ["pitch", "energy", "silence"]
+        }];
 
-        $scope.selectLanguage = function(lang) {
+        $scope.selectPainter = function(painter) {
             $rootScope.settings = {
-                language: lang
+                painter: painter
             }
-            location.href = "#/intro";
+            location.href = "#/config";
             return;
         }
 

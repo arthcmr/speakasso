@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name perceptionClientApp.controller:MainCtrl
+ * @name speakassoClientApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the perceptionClientApp
+ * Controller of the speakassoClientApp
  */
 
 google.load('visualization', '1', {
@@ -13,10 +13,10 @@ google.load('visualization', '1', {
 });
 
 google.setOnLoadCallback(function() {
-    angular.bootstrap(document.body, ['perceptionClientApp']);
+    angular.bootstrap(document.body, ['speakassoClientApp']);
 });
 
-angular.module('perceptionClientApp')
+angular.module('speakassoClientApp')
     .controller('ResultsCtrl', function($scope, $rootScope, $http) {
 
         $http({

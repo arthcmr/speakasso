@@ -1,6 +1,18 @@
-$colorBlue:#428bca;
- body {
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+body {
+    font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
+}
+
+h1 {
+    color: #999;
+    margin-bottom: 40px;
+    strong {
+        text-decoration: underline;
+    }
+}
+h2 {
+    color: #ccc;
+    font-style: italic;
+    font-size: 16px;
 }
 #progress {
     position: absolute;
@@ -8,13 +20,11 @@ $colorBlue:#428bca;
     top: 0;
     width: 0%;
     height: 0.5em;
-    background: $colorBlue;
+    background: $color-blue;
     @include transition(width, 0.3s, ease-in-out);
-
     -webkit-animation: animGrowWidth 0.5s cubic-bezier(0.7, 0, 0.3, 1) 1;
     animation: animGrowWidth 0.5s cubic-bezier(0.7, 0, 0.3, 1) 1;
 }
-
 @-webkit-keyframes animGrowWidth {
     from {
         width: 0;

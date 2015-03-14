@@ -1,7 +1,7 @@
-perception-client
+SPEAKASSO
 =================
 
-Client app for Human Perception Experiment
+Visualizing speech
 
 ###How to get started
 In order to run this app, you need to have Node.js installed. If you don't, install it through the official website: http://nodejs.org/. You will also need Ruby and Compass correctly installed (Mac OS users don't have to install Ruby)
@@ -21,7 +21,7 @@ The browser will open and the app will run on ```http://localhost:9000/```
 
 ###How to build the project
 
-If you want to build the project, run
+If you want to build the project (distributable version), run
 ```
 grunt build
 ```

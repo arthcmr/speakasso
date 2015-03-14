@@ -4,14 +4,14 @@ var API_BASE = 'http://178.62.207.54:3000/';
 
 /**
  * @ngdoc overview
- * @name perceptionClientApp
+ * @name speakassoClientApp
  * @description
- * # perceptionClientApp
+ * # speakassoClientApp
  *
  * Main module of the application.
  */
 angular
-  .module('perceptionClientApp', [
+  .module('speakassoClientApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -25,9 +25,9 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .when('/intro', {
-        templateUrl: 'views/intro.html',
-        controller: 'IntroCtrl'
+      .when('/config', {
+        templateUrl: 'views/config.html',
+        controller: 'ConfigCtrl'
       })
       .when('/start', {
         templateUrl: 'views/start.html',

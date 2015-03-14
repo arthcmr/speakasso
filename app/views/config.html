@@ -1,18 +1,26 @@
-<div class="container" id="painter_selector">
+<div class="container" id="config">
     <h1><span class="brand" style="font-weight: 900">SPEAK<span style="font-weight: 200;">ASSO</span></span></h1>
-    <h2 class="subheading">Choose a painter</h2>
+
+    <div class="top row">
+    
+        <p>Painting with <strong>{{painter.name}}</strong></p>
+    </div>
+    <h2 class="subheading">Choose your options</h2>
 
     <div class="painters row">
-        <div class="painter col-md-3" ng-repeat="painter in painters" ng-click="selectPainter(painter)">
+        <div class="painter col-md-3" ng-repeat="painter in painters" ng-click="selectPainter(painter.value)">
             <h3 class="painter_label">{{painter.name}}</h3>
             <div id="{{painter.value}}" ng-model="form.painter" class="painter-image" name="painter" style="background-image: url({{painter.image}})"></div>
             <p class="painter_description">{{painter.description}}</p>
             <div class="tags" ng-if="painter.tags.length">
-            	<span class="tag" ng-repeat="tag in painter.tags">
-            		#{{tag}}
-            	</span>
+                <span class="tag" ng-repeat="tag in painter.tags">
+                    #{{tag}}
+                </span>
             </div>
         </div>
     </div>
+
+
+    <button class="back btn btn-large btn-default"><i class="fa fa-arrow-left"></i> Back</button>
 
 </div>

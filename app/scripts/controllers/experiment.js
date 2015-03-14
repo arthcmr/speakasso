@@ -2,12 +2,12 @@
 
 /**
  * @ngdoc function
- * @name perceptionClientApp.controller:AboutCtrl
+ * @name speakassoClientApp.controller:AboutCtrl
  * @description
  * # AboutCtrl
- * Controller of the perceptionClientApp
+ * Controller of the speakassoClientApp
  */
-angular.module('perceptionClientApp')
+angular.module('speakassoClientApp')
     .controller('ExperimentCtrl', function($scope, $rootScope, $http) {
 
         //force settings and instructions to be present

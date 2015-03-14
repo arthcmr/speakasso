@@ -1,6 +1,7 @@
 <!doctype html>
 <html class="no-js">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <title></title>
     <meta name="description" content="">
@@ -10,14 +11,16 @@
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css" />
     <!-- endbower -->
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,900' rel='stylesheet' type='text/css'>
     <!-- endbuild -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
 
     <script src="bower_components/modernizr/modernizr.js"></script>
-  </head>
-  <body>
+</head>
+
+<body>
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -56,22 +59,26 @@
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
     <script src="bower_components/classie/classie.js"></script>
+    <script src="bower_components/lodash/lodash.js"></script>
+    <script src="bower_components/randomcolor/randomColor.js"></script>
+    <script src="bower_components/art_generator/dist/artgen/artgen.js"></script>
+    <script src="bower_components/art_generator/dist/ncsound/ncsound.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-    <script src="bower_components/jquery-fullscreen/jquery.fullscreen.js"></script>
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/fullscreenForm.js"></script>
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/intro.js"></script>
-        <script src="scripts/controllers/start.js"></script>
-        <script src="scripts/controllers/instructions.js"></script>
-        <script src="scripts/controllers/experiment.js"></script>
-        <script src="scripts/controllers/thankyou.js"></script>
-        <script src="scripts/controllers/results.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/fullscreenForm.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/config.js"></script>
+    <script src="scripts/controllers/start.js"></script>
+    <script src="scripts/controllers/instructions.js"></script>
+    <script src="scripts/controllers/experiment.js"></script>
+    <script src="scripts/controllers/thankyou.js"></script>
+    <script src="scripts/controllers/results.js"></script>
+    <!-- endbuild -->
 </body>
+
 </html>
