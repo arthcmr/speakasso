@@ -15,7 +15,8 @@
     "modernizr": "~2.8.3",
     "classie": "~1.0.1",
     "font-awesome": "~4.2.0",
-    "art_generator": "https://github.com/arthurcamara1/infovis2015_artgenerator.git#develop"
+    "art_generator": "https://github.com/arthurcamara1/infovis2015_artgenerator.git#develop",
+    "angular-dropdowns": "~1.0.0"
   },
   "devDependencies": {
     "angular-mocks": "~1.2.0",

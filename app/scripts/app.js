@@ -17,7 +17,8 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngDropdowns'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -29,26 +30,10 @@ angular
         templateUrl: 'views/config.html',
         controller: 'ConfigCtrl'
       })
-      .when('/start', {
-        templateUrl: 'views/start.html',
-        controller: 'StartCtrl'
-      })
-      .when('/instructions', {
-        templateUrl: 'views/instructions.html',
-        controller: 'InstructionsCtrl'
-      })
-      .when('/experiment', {
-        templateUrl: 'views/experiment.html',
-        controller: 'ExperimentCtrl'
-      })
-      .when('/thankyou', {
-        templateUrl: 'views/thankyou.html',
-        controller: 'ThankyouCtrl'
-      })
-      .when('/results', {
-        templateUrl: 'views/results.html',
-        controller: 'ResultsCtrl'
-      })
+      // .when('/canvas', {
+      //   templateUrl: 'views/canvas.html',
+      //   controller: 'CanvasCtrl'
+      // })
       .otherwise({
         redirectTo: '/'
       });

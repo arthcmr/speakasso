@@ -1,26 +1,36 @@
 <div class="container" id="config">
     <h1><span class="brand" style="font-weight: 900">SPEAK<span style="font-weight: 200;">ASSO</span></span></h1>
 
-    <div class="top row">
-    
-        <p>Painting with <strong>{{painter.name}}</strong></p>
-    </div>
-    <h2 class="subheading">Choose your options</h2>
+    <h2 class="subheading">Choose your options for <strong>{{painter.name}}</strong></h2>
 
-    <div class="painters row">
-        <div class="painter col-md-3" ng-repeat="painter in painters" ng-click="selectPainter(painter.value)">
-            <h3 class="painter_label">{{painter.name}}</h3>
-            <div id="{{painter.value}}" ng-model="form.painter" class="painter-image" name="painter" style="background-image: url({{painter.image}})"></div>
-            <p class="painter_description">{{painter.description}}</p>
-            <div class="tags" ng-if="painter.tags.length">
-                <span class="tag" ng-repeat="tag in painter.tags">
-                    #{{tag}}
-                </span>
+    <div class="options row">
+        <h3>Which features of the speech do you want visualized?</h3>
+
+        <div class="option" ng-repeat="(key, option) in data_options">
+            <span class="option-order">{{ key+1 }}.</span>
+
+            <div dropdown-select="option.possible" dropdown-model="option.selected" dropdown-item-label="name">
             </div>
+
+            <span class="option-description">{{option.description}}</span>
         </div>
+
+        <hr/>
+        <h3>Additional options:</h3>
+
+        <div class="option" ng-repeat="option in extra_options">
+            <span class="option-order">{{option.name}}:</span>
+
+            <div dropdown-select="option.possible" dropdown-model="option.selected" dropdown-item-label="name">
+            </div>
+
+            <span class="option-description">{{option.description}}</span>
+        </div>
+
+        <hr/>
     </div>
 
 
-    <button class="back btn btn-large btn-default"><i class="fa fa-arrow-left"></i> Back</button>
+    <a ng-href="#/" class="back btn-flat btn btn-large btn-default"><i class="fa fa-arrow-left"></i> Back</a> <button ng-click="confirmConfig()" class="back btn-flat btn btn-large btn-default">Continue <i class="fa fa-arrow-right"></i></button>
 
 </div>

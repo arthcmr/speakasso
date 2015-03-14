@@ -1,7 +1,8 @@
 #config {
     text-align: center;
     padding-top: 50px;
-
+    max-width: 550px;
+    margin: 0 auto;
     .top {
         text-transform: uppercase;
         font-weight: 700;
@@ -11,8 +12,26 @@
             font-weight: 900;
         }
     }
-
-    
+    .options {
+        text-align: left;
+        h3 {
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 14px;
+            margin-top: 40px;
+        }
+        .option-description {
+            font-style: italic;
+            color: #888888;
+        }
+        .option-order {
+            color: #ddd;
+            font-size: 2em;
+            font-weight: 900;
+            vertical-align: middle;
+            line-height: 2.5em;
+        }
+    }
     .painters {
         margin-top: 20px;
         margin-bottom: 50px;

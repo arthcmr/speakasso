@@ -1,18 +1,91 @@
 body {
     font-family: "Lato", "Helvetica Neue", Helvetica, Arial, sans-serif;
 }
-
 h1 {
-    color: #999;
+    color: #666666;
     margin-bottom: 40px;
     strong {
         text-decoration: underline;
     }
 }
 h2 {
-    color: #ccc;
-    font-style: italic;
+    color: #999999;
     font-size: 16px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    strong {
+        color: rgba(0, 0, 0, 0.8);
+        font-weight: 900;
+    }
+}
+.wrap-dd-select {
+    margin: 5px;
+    border: 3px solid #666666;
+    border-radius: 6px;
+    text-transform: uppercase;
+    color: #999999;
+    display: inline-block;
+    &.active .dropdown {
+        z-index: 1000;
+    }
+    &:after {
+        border-color: #666666 transparent;
+    }
+    &:before {
+        display: none;
+    }
+    & .dropdown {
+        border: none;
+        box-shadow: none;
+        background-color: #666666;
+
+        &:after {
+            border-color: #666666 transparent;
+        }
+        &:before {
+            content: none;
+        }
+    }
+    & .dropdown li a {
+        color: white;
+        border-bottom: 0px;
+        box-shadow: none;
+    }
+    & .dropdown li:hover a {
+        background-color: #444444;
+    }
+}
+.btn.btn-flat {
+    &, &:focus {
+        margin: 0 2px;
+        border: 3px solid;
+        overflow: hidden;
+        padding: 0;
+        -webkit-transition: border-color 0.3s, background-color 0.3s;
+        transition: border-color 0.3s, background-color 0.3s;
+        -webkit-transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        transition-timing-function: cubic-bezier(0.2, 1, 0.3, 1);
+        background-color: rgba(0, 0, 0, 0);
+        color: #666666;
+        border-color: #666666;
+        font-weight: 700;
+        border-radius: 40px;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        font-size: 14px;
+        min-width: 150px;
+        max-width: 250px;
+        vertical-align: middle;
+        padding: 1em 2em;
+        outline: none !important;
+        &:hover, &:active {
+            box-shadow: none;
+            background-color: rgba(0, 0, 0, 0);
+            color: #333333;
+            border-color: #333333;
+        }
+    }
 }
 #progress {
     position: absolute;

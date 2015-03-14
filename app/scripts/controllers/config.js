@@ -16,28 +16,91 @@ angular.module('speakassoClientApp')
         }
 
         $scope.painter = $rootScope.settings.painter;
+        $scope.data_options = [{
+            possible: [{
+                name: "Silence",
+                value: "silence"
+            }, {
+                name: "Energy",
+                value: "energy"
+            }, {
+                name: "Pitch",
+                value: "pitch"
+            }, {
+                name: "Loudness",
+                value: "loudness"
+            }],
+            selected: {
+                name: "Silence",
+                value: "silence"
+            },
+            description: "used to determine vertical position"
+        }, {
+            possible: [{
+                name: "Pitch",
+                value: "pitch"
+            }, {
+                name: "Energy",
+                value: "energy"
+            }],
+            selected: {
+                name: "Pitch",
+                value: "pitch"
+            },
+            description: "used to determine color"
+        }, {
+            possible: [{
+                name: "Pitch",
+                value: "pitch"
+            }, {
+                name: "Energy",
+                value: "energy"
+            }],
+            selected: {
+                name: "Energy",
+                value: "energy"
+            },
+            description: "used to determine size"
+        }];
 
-        // $scope.loading = true;
-        // //load data
-        // $http({
-        //     method: "get",
-        //     url: API_BASE + "getAll",
-        //     params: {
-        //         lang: $rootScope.settings.language
-        //     }
-        // }).success(function(data) {
-        //     var lang = $rootScope.settings.language;
-        //     console.log("Retrieved data successfully");
-        //     $rootScope.text = data.i18n[lang].text;
-        //     $rootScope.words = data.i18n[lang].words;
-        //     $rootScope.experiment = data.experiment;
-        //     $scope.loading = false;
+        $scope.extra_options = [{
+            name: "Color",
+            possible: [{
+                name: "Red",
+                value: "red"
+            }, {
+                name: "Blue",
+                value: "blue"
+            }, {
+                name: "Green",
+                value: "green"
+            }],
+            selected: {
+                name: "Red",
+                value: "red"
+            },
+            description: "used to determine the color palette"
+        }, {
+            name: "Brush",
+            possible: [{
+                name: "Ink",
+                value: "ink"
+            }, {
+                name: "Pencil",
+                value: "pencil"
+            }],
+            selected: {
+                name: "Ink",
+                value: "ink"
+            },
+            description: "main brush used"
+        }];
 
-        //     replaceText();
-
-        // }).error(function(e) {
-        //     alert("Error connecting to the server! Refresh.");
-        // });
+        $scope.confirmConfig = function() {
+            $rootScope.settings.config = {};
+            location.href = "#/canvas";
+            return;
+        };
 
         $rootScope.prev = "config";
     });
