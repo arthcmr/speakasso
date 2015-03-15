@@ -85,6 +85,8 @@
   -webkit-overflow-scrolling: touch;
 }
 
+
+
 @mixin breakpoint($point) {
   @if $point == portrait {
     @media screen and (orientation: portrait) { @content; }
@@ -119,6 +121,14 @@
   @else if $point == large-portrait {
     @media (min-width: $largeMinWidth) and (orientation: portrait) { @content; }
   }
+}
+
+@mixin scale($x, $y, $z) {
+    -webkit-transform: scale3d($x, $y, $z);
+    -moz-transform: scale3d($x, $y, $z);
+    -o-transform: scale3d($x, $y, $z);
+    -ms-transform: scale3d($x, $y, $z);
+    transform: scale3d($x, $y, $z);
 }
 
 @mixin transition($transition-property, $transition-time, $method) {

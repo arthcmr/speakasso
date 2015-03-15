@@ -1,0 +1,97 @@
+$sidebar-width: 300px;
+$sidebar-hidden-pos: -1 * ( $sidebar-width + 100px);
+$sidebar-middle-width: 700px;
+$sidebar-middle-height: 400px;
+#canvas {
+    #visualization {
+        @include absoluteAll();
+    }
+    .sidebar-btn {
+        @include absolute(20px, 20px);
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+    }
+    #sidebar {
+        background-color: #666666;
+        width: $sidebar-width;
+        @include absolute(0px, $sidebar-hidden-pos, 0px, auto);
+        -webkit-transition: all 0.3s ease-in-out;
+        -moz-transition: all 0.3s ease-in-out;
+        transition: all 0.3s ease-in-out;
+        text-align: center;
+        .btn.btn-circle.btn-flat.btn-lg {
+            font-size: 28px;
+            background: #cccccc;
+            width: 68px;
+        }
+        .section {
+            @include box-sizing(border-box);
+            padding: 20px;
+        }
+        .section_icon {
+            color: #777777;
+            vertical-align: sub;
+            width: 39px;
+            display: inline-block;
+            text-align: center;
+        }
+        .sidebar_dropdown {
+            text-transform: none;
+            text-align: left;
+            border: 3px solid #777777;
+        }
+
+        .sidebar_save {
+            @include absolute(auto, 0px, 0px, 0px);
+        }
+    }
+    &.sidebar-open {
+        .sidebar-btn {
+            @include absolute(20px, $sidebar-width + 20px);
+        }
+        #sidebar {
+            background-color: rgba(102, 102, 102, 0.6);
+            @include absolute(0px, 0px, 0px, auto);
+        }
+    }
+    &.sidebar-middle {
+        &:before {
+            @include absolute(0px, 0px, 0px, 0px);
+            @include opacity(0);
+            content: '';
+            background-color: rgba(102, 102, 102, 0.1);
+            transition: all 0.3s ease-in-out;
+            display: block
+        }
+        #sidebar {
+            width: $sidebar-middle-width;
+            height: $sidebar-middle-height;
+            margin-left: $sidebar-middle-width / 2 * -1;
+            @include opacity(0);
+            @include absolute(100px, auto, auto, 50%);
+            @include scale( 0.95, 0.95, 1);
+        }
+        .sidebar_save {
+            display: hidden;
+        }
+    }
+    &.sidebar-open.sidebar-middle {
+        .sidebar-btn {
+            @include absolute(20px, 20px);
+        }
+        &:before {
+            @include opacity(1);
+        }
+        #sidebar {
+            @include scale( 1, 1, 1);
+            @include opacity(1);
+        }
+        .divide {
+            @include box-sizing(border-box);
+            padding: 10px;
+            width: 50%;
+            float: left;
+        }
+    }
+}

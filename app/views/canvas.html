@@ -1,7 +1,57 @@
-<div class="container-fluid" id="canvas">
-    
+<div class="container-fluid" id="canvas" ng-class="{'sidebar-open': sidebar, 'sidebar-middle': sidebar_middle}">
+
     <canvas id="visualization"></canvas>
 
-    <button class="menu btn-flat btn-circle"><i class="fa fa-bars"></i></button>
+    <button ng-click="toggleSidebar()" class="sidebar-btn btn btn-flat btn-circle"><i class="fa fa-bars"></i>
+    </button>
+
+    <div id="sidebar">
+
+        <!-- CHOOSING INPUT -->
+        <div class="divide">
+            <div id="sidebar_input" class="section">
+                <p class="section_title">INPUT CHANNEL</p>
+
+                <span class="section_icon"><i class="fa fa-2x" ng-class="{'fa-microphone': input.selected.value == 'microphone', 'fa-music': input.selected.value == 'preset', 'fa-file-sound-o': input.selected.value == 'file', 'fa-soundcloud': input.selected.value == 'soundcloud'}"></i></span>
+
+                <div class="sidebar_dropdown" dropdown-select="input.possible" dropdown-model="input.selected" dropdown-item-label="name">
+                </div>
+            </div>
+
+
+        </div>
+        <div class="divide">
+
+            <!-- PRESET AUDIO FILES -->
+            <div id="sidebar_input_preset" ng-if="input.selected.value == 'preset'" class="section">
+
+                <p class="section_title">PICK THE INPUT</p>
+
+                <div class="sidebar_dropdown" dropdown-select="preset.possible" dropdown-model="preset.selected" dropdown-item-label="name">
+                </div>
+
+                <button ng-disabled="loading" ng-click='togglePlayPreset()' id="preset_play" class="btn btn-circle btn-flat btn-lg"><i class="fa" ng-class="{'fa-play': (!playing && !loading), 'fa-pause': (playing && !loading), 'fa-ellipsis-h': loading}"></i>
+                </button>
+
+            </div>
+        </div>
+        <div class="divide sidebar_save middle-hidden">
+
+            <!-- SAVE OPTIONS -->
+            <div class="section">
+                <p>
+                    <button class="btn btn-flat btn-lg">
+                        <i class="fa fa-download"></i> Save Image
+                    </button>
+                </p>
+                <p>
+                    <button class="btn btn-flat btn-lg">
+                        <i class="fa fa-cloud-upload"></i> Share
+                    </button>
+                </p>
+            </div>
+        </div>
+
+    </div>
 
 </div>

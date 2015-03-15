@@ -11,7 +11,7 @@ var API_BASE = 'http://178.62.207.54:3000/';
  * Main module of the application.
  */
 angular
-    .module('speakassoClientApp ', [
+    .module('speakassoClientApp', [
         'ngAnimate',
         'ngCookies',
         'ngResource',
@@ -38,8 +38,3 @@ angular
                 redirectTo: '/'
             });
     });
-
-
-window.onload = function() {
-    angular.bootstrap(document.body, ['speakassoClientApp']);
-}
