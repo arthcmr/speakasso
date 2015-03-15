@@ -51,7 +51,7 @@ $sidebar-middle-height: 400px;
             @include absolute(20px, $sidebar-width + 20px);
         }
         #sidebar {
-            background-color: rgba(102, 102, 102, 0.6);
+            background-color: rgba(102, 102, 102, 0.25);
             @include absolute(0px, 0px, 0px, auto);
         }
     }

@@ -100,19 +100,50 @@ angular.module('speakassoClientApp')
 
         var painter = ARTGEN.init("visualization", "circle");
 
-        NCSOUND.startMikeStream(function() {
-            console.log("Starting microphone...");
+        // NCSOUND.startMikeStream(function() {
+        //     console.log("Starting microphone...");
+        //     resizeCanvas();
+        //     restartPainter(painter);
+        //     setInterval(function() {
+        //         var data = {
+        //             silence: NCSOUND.getData(4)[0] || 0,
+        //             energy: NCSOUND.getData(7)[0] || 0,
+        //             energy2: NCSOUND.getData(9)[0] || 0
+        //         };
+        //         painter.data = data;
+        //     }, 10);
+        // });
+
+        // get context
+        window.AudioContext = window.AudioContext || window.webkitAudioContext;
+        var context = new AudioContext(),
+            meyda;
+
+        navigator.getUserMedia({
+            video: false, audio: true
+        },
+        function(media) {
+            window.source = context.createMediaStreamSource(media);
+            meyda = new Meyda(context, source, 512);
+
             resizeCanvas();
             restartPainter(painter);
-            setInterval(function() {
-                var data = {
-                    silence: NCSOUND.getData(4)[0] || 0,
-                    energy: NCSOUND.getData(7)[0] || 0,
-                    energy2: NCSOUND.getData(9)[0] || 0
-                };
-                painter.data = data;
-            }, 10);
+            _.delay(function(){
+                draw();
+            }, 1000);
+        }, function(err) {
+            console.log("MIC ERROR");
         });
+
+        function draw() {
+            requestAnimationFrame(draw);
+            var data = {
+                silence: meyda.get('spectralKurtosis') || 0,
+                energy: meyda.get('spectralKurtosis') || 0,
+                energy2: meyda.get('spectralKurtosis') || 0
+            };
+            painter.data = data;
+        }
 
 
     });
