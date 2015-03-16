@@ -11,9 +11,13 @@ $sidebar-middle-height: 400px;
         -webkit-transition: all 0.3s ease-in-out;
         -moz-transition: all 0.3s ease-in-out;
         transition: all 0.3s ease-in-out;
+        @include opacity(0.25);
+        &:hover {
+            @include opacity(0.5);
+        }
     }
     #sidebar {
-        background-color: #666666;
+        background-color: rgba(203, 208, 214, 0.8);
         width: $sidebar-width;
         @include absolute(0px, $sidebar-hidden-pos, 0px, auto);
         -webkit-transition: all 0.3s ease-in-out;
@@ -41,7 +45,6 @@ $sidebar-middle-height: 400px;
             text-align: left;
             border: 3px solid #777777;
         }
-
         .sidebar_save {
             @include absolute(auto, 0px, 0px, 0px);
         }
@@ -49,9 +52,12 @@ $sidebar-middle-height: 400px;
     &.sidebar-open {
         .sidebar-btn {
             @include absolute(20px, $sidebar-width + 20px);
+            @include opacity(0.8);
+            &:hover {
+                @include opacity(1);
+            }
         }
         #sidebar {
-            background-color: rgba(102, 102, 102, 0.25);
             @include absolute(0px, 0px, 0px, auto);
         }
     }
