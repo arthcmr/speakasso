@@ -79,6 +79,9 @@ angular.module('speakassoClientApp')
             $scope.playing = !$scope.playing;
         }
 
+        var config = $rootScope.settings.config,
+            data_options = config.data_options,
+            options = config.extra_options;
 
 
         var ctx, canvas = document.getElementById("visualization");
@@ -98,7 +101,7 @@ angular.module('speakassoClientApp')
         resizeCanvas();
         window.addEventListener('resize', resizeCanvas, false);
 
-        var painter = ARTGEN.init("visualization", "circle");
+        var painter = ARTGEN.init("visualization", "circle", options);
 
         // NCSOUND.startMikeStream(function() {
         //     console.log("Starting microphone...");
@@ -143,6 +146,26 @@ angular.module('speakassoClientApp')
                 energy: NCSOUND.get('intensity')|| 0,
                 energy2: NCSOUND.get('emotion') || 0
             };
+                video: false,
+                audio: true
+            },
+            function(media) {
+                window.source = context.createMediaStreamSource(media);
+                meyda = new Meyda(context, source, 512);
+
+                resizeCanvas();
+                restartPainter(painter);
+                _.delay(function() {
+                    draw();
+                }, 1000);
+            },
+            function(err) {
+                console.log("MIC ERROR");
+            });
+
+        function draw() {
+            requestAnimationFrame(draw);
+            var data = _.values(meyda.get(data_options));
             painter.data = data;
         }
 

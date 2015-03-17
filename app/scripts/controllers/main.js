@@ -10,19 +10,23 @@
 angular.module('speakassoClientApp')
     .controller('MainCtrl', function($scope, $rootScope) {
 
-        $scope.painters = [{
-            value: "leonardo",
-            name: "Leonardo",
-            image: "images/leonardo.jpg",
-            description: "The ephemeral nature of speech represented through deformed rings",
-            tags: ["energy", "color", "expressiveness"]
-        }, {
-            value: "picasso",
-            name: "Picasso",
-            image: false,
-            description: "Like Heraclitus' river, this meandering stream shows the everchanging flow of conversations",
-            tags: ["pitch", "energy", "silence"]
-        }];
+        //valid painters from ARTGEN
+        var painters = []
+        _.forIn(ARTGEN.info_painters, function(v, k) {
+            if (!v.title) return true;
+            var info = {
+                value: k,
+                name: v.title,
+                description: v.description,
+                tags: v.tags,
+                image: "images/"+ k +".jpg",
+                data_values: v.data_values,
+                options: v.options
+            }
+            painters.push(info);
+        });
+
+        $scope.painters = painters;
 
         $scope.selectPainter = function(painter) {
             $rootScope.settings = {

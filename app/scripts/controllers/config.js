@@ -16,88 +16,47 @@ angular.module('speakassoClientApp')
         }
 
         $scope.painter = $rootScope.settings.painter;
-        $scope.data_options = [{
-            possible: [{
-                name: "Silence",
-                value: "silence"
-            }, {
-                name: "Energy",
-                value: "energy"
-            }, {
-                name: "Pitch",
-                value: "pitch"
-            }, {
-                name: "Loudness",
-                value: "loudness"
-            }],
-            selected: {
-                name: "Silence",
-                value: "silence"
-            },
-            description: "used to determine vertical position"
-        }, {
-            possible: [{
-                name: "Pitch",
-                value: "pitch"
-            }, {
-                name: "Energy",
-                value: "energy"
-            }],
-            selected: {
-                name: "Pitch",
-                value: "pitch"
-            },
-            description: "used to determine color"
-        }, {
-            possible: [{
-                name: "Pitch",
-                value: "pitch"
-            }, {
-                name: "Energy",
-                value: "energy"
-            }],
-            selected: {
-                name: "Energy",
-                value: "energy"
-            },
-            description: "used to determine size"
-        }];
 
-        $scope.extra_options = [{
-            name: "Color",
-            possible: [{
-                name: "Red",
-                value: "red"
-            }, {
-                name: "Blue",
-                value: "blue"
-            }, {
-                name: "Green",
-                value: "green"
-            }],
-            selected: {
-                name: "Red",
-                value: "red"
-            },
-            description: "used to determine the color palette"
-        }, {
-            name: "Brush",
-            possible: [{
-                name: "Ink",
-                value: "ink"
-            }, {
-                name: "Pencil",
-                value: "pencil"
-            }],
-            selected: {
-                name: "Ink",
-                value: "ink"
-            },
-            description: "main brush used"
-        }];
+        //options extracted from painter
+        $scope.data_options = _.map($scope.painter.data_values, function(opt) {
+            var option = {
+                description: opt.description,
+                possible: _.map(opt.options, function(val) {
+                    return { name: val, value: val };
+                }),
+                selected: { name: opt.options[0], value: opt.options[0]}
+            };
+            return option;
+        });
+
+        //aditional options
+        var extra_options = [];
+        _.forIn($scope.painter.options, function(opt, key) {
+            var option = {
+                name: key,
+                description: opt.description,
+                possible: _.map(opt.options, function(val) {
+                    return { name: val, value: val };
+                }),
+                selected: { name: opt.options[0], value: opt.options[0]}
+            };
+            extra_options.push(option);
+        });
+
+        $scope.extra_options = extra_options;
 
         $scope.confirmConfig = function() {
-            $rootScope.settings.config = {};
+            $rootScope.settings.config = {
+                data_options: _.map($scope.data_options, function(k) {
+                    return k.selected.value;
+                }),
+                extra_options: {}
+            };
+
+            _.each($scope.extra_options, function(item) {
+                $rootScope.settings.config.extra_options[item.name] = item.selected.value;
+            });
+
             location.href = "#/canvas";
             return;
         };
