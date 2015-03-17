@@ -119,55 +119,71 @@ angular.module('speakassoClientApp')
 
         // get context
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        var context = new AudioContext();
-         //   meyda;
 
-        navigator.getUserMedia({
-            video: false, audio: true
-        },
-        function(media) {
-            window.source = context.createMediaStreamSource(media);
-            //meyda = new Meyda(context, source, 512);
-            NCSOUND.init(context, source, 512);
+        var context = new AudioContext(),
+            audio = new Audio(),
+            source,
+            meyda;
+
+        var client_id = 'f247cf34fbe0f23b9dfc2e6a52dbb400';
+
+        //initialize Soundcloud
+        SC.initialize({
+            client_id: client_id
+        });
+
+        var track_url = "https://soundcloud.com/luke1966/martin-luther-king-jr-i-have-a-dream-full-speech";
+        SC.get('/resolve', {
+            url: track_url
+        }, function(track) {
+
+            var url = 'http://api.soundcloud.com/tracks/'+track.id+'/stream' +
+          '?client_id='+client_id;
+
+            audio.src = url;
+            source = context.createMediaElementSource(audio);
+            source.connect(context.destination);
+            source.mediaElement.play();
+
+            meyda = new Meyda(context, source, 512);
 
             resizeCanvas();
             restartPainter(painter);
-            _.delay(function(){
+            _.delay(function() {
                 draw();
             }, 1000);
-        }, function(err) {
-            console.log("MIC ERROR");
+
         });
-
-        function draw() {
-            requestAnimationFrame(draw);
-            var data = {
-                silence: NCSOUND.get('silence') || 0,
-                energy: NCSOUND.get('intensity')|| 0,
-                energy2: NCSOUND.get('emotion') || 0
-            };
-                video: false,
-                audio: true
-            },
-            function(media) {
-                window.source = context.createMediaStreamSource(media);
-                meyda = new Meyda(context, source, 512);
-
-                resizeCanvas();
-                restartPainter(painter);
-                _.delay(function() {
-                    draw();
-                }, 1000);
-            },
-            function(err) {
-                console.log("MIC ERROR");
-            });
 
         function draw() {
             requestAnimationFrame(draw);
             var data = _.values(meyda.get(data_options));
             painter.data = data;
         }
+
+        // navigator.getUserMedia({
+        //         video: false,
+        //         audio: true
+        //     },
+        //     function(media) {
+        //         window.source = context.createMediaStreamSource(media);
+        //         meyda = new Meyda(context, source, 512);
+
+        //         resizeCanvas();
+        //         restartPainter(painter);
+        //         _.delay(function() {
+        //             draw();
+        //         }, 1000);
+        //     },
+        //     function(err) {
+        //         console.log("MIC ERROR");
+        //     });
+
+        // function draw() {
+        //     requestAnimationFrame(draw);
+        //     var data = _.values(meyda.get(data_options));
+        //     painter.data = data;
+        // }
 
 
     });
