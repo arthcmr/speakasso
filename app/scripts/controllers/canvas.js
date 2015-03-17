@@ -142,7 +142,7 @@ angular.module('speakassoClientApp')
 
         function draw() {
             requestAnimationFrame(draw);
-            var data = meyda.get(data_options);
+            var data = _.values(meyda.get(data_options));
             painter.data = data;
         }
 
