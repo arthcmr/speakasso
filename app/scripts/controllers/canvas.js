@@ -1,4 +1,4 @@
-'use strict';
+    'use strict';
 
 /**
  * @ngdoc function
@@ -116,15 +116,16 @@ angular.module('speakassoClientApp')
 
         // get context
         window.AudioContext = window.AudioContext || window.webkitAudioContext;
-        var context = new AudioContext(),
-            meyda;
+        var context = new AudioContext();
+         //   meyda;
 
         navigator.getUserMedia({
             video: false, audio: true
         },
         function(media) {
             window.source = context.createMediaStreamSource(media);
-            meyda = new Meyda(context, source, 512);
+            //meyda = new Meyda(context, source, 512);
+            NCSOUND.init(context, source, 512);
 
             resizeCanvas();
             restartPainter(painter);
@@ -138,9 +139,9 @@ angular.module('speakassoClientApp')
         function draw() {
             requestAnimationFrame(draw);
             var data = {
-                silence: meyda.get('spectralKurtosis') || 0,
-                energy: meyda.get('spectralKurtosis') || 0,
-                energy2: meyda.get('spectralKurtosis') || 0
+                silence: NCSOUND.get('silence') || 0,
+                energy: NCSOUND.get('intensity')|| 0,
+                energy2: NCSOUND.get('emotion') || 0
             };
             painter.data = data;
         }
