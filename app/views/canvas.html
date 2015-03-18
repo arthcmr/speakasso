@@ -2,7 +2,7 @@
 
     <canvas id="visualization"></canvas>
 
-    <button ng-click="toggleSidebar()" class="sidebar-btn btn btn-flat btn-circle"><i class="fa fa-bars"></i>
+    <button ng-if="!sidebar_middle" ng-click="toggleSidebar()" class="sidebar-btn btn btn-flat btn-circle"><i class="fa fa-bars"></i>
     </button>
 
     <div id="sidebar">
@@ -30,16 +30,27 @@
                 <div class="sidebar_dropdown" dropdown-select="preset.possible" dropdown-model="preset.selected" dropdown-item-label="name">
                 </div>
 
-                <button ng-disabled="loading" ng-click='togglePlayPreset()' id="preset_play" class="btn btn-circle btn-flat btn-lg"><i class="fa" ng-class="{'fa-play': (!playing && !loading), 'fa-pause': (playing && !loading), 'fa-ellipsis-h': loading}"></i>
-                </button>
+                <div ng-if="preset.selected.value">
+                    <button ng-disabled="loading" ng-click='togglePlayPreset()' id="preset_play" class="btn btn-circle btn-flat btn-lg"><i class="fa" ng-class="{'fa-play': (!playing && !loading), 'fa-pause': (playing && !loading), 'fa-ellipsis-h': loading}"></i>
+                    </button>
+                </div>
 
             </div>
         </div>
 
-        <div class="divide sidebar_save middle-hidden">
+        <div class="divide sidebar_save">
+
+            <!-- START OPTIONS -->
+            <div ng-if="ready && sidebar_middle" class="section">
+                <p>
+                    <button ng-click='startAll()' class="btn btn-flat btn-lg">
+                        <i class="fa fa-paint-brush"></i> Start
+                    </button>
+                </p>
+            </div>
 
             <!-- SAVE OPTIONS -->
-            <div class="section">
+            <div ng-if="ready && !sidebar_middle" class="section">
                 <p>
                     <button class="btn btn-flat btn-lg">
                         <i class="fa fa-download"></i> Save Image
