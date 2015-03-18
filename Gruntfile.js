@@ -350,7 +350,7 @@ module.exports = function(grunt) {
                         '.htaccess',
                         '*.html',
                         'views/{,*/}*.html',
-                        'images/{,*/}*.{webp}',
+                        'images/{,*/}*.{webp,png,jpg,gif}',
                         'fonts/*'
                     ]
                 }, {

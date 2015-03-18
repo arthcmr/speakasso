@@ -104,7 +104,7 @@
             // resize the canvas to fill browser window dynamically
             resizeCanvas();
 
-            // window.addEventListener('resize', resizeCanvas, false);
+            window.addEventListener('resize', resizeCanvas, false);
             window.AudioContext = window.AudioContext || window.webkitAudioContext;
 
             //watch changes
