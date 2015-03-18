@@ -22,6 +22,9 @@ NCSOUND.prevMaxFrequencyKey=0;
 NCSOUND.kurtosisLevel=1500;
 NCSOUND.skewnessLevel=5;
 
+NCSOUND.prevAmpAvg=0;
+NCSOUND.zcrTresh=200;
+
 NCSOUND.init= function(context, source, buffer){
     this.analyser=new Meyda(context, source, 512);
 }
@@ -156,6 +159,30 @@ NCSOUND.get = function(feature) {
                     }
 
                     value= (spectrumFeatures+maxBandLoudnessKey+pitchVariance)/3;
+                    break;
+            case 'speed':
+                    var zcr = this.analyser.get('zcr');
+                    var freqData = this.analyser.get('amplitudeSpectrum');
+                    var averageAmp=0;
+
+                    // for (key in freqData){
+                    //     averageAmp+=freqData[key];
+                    // }
+                    // averageAmp=averageAmp/freqData.length;
+
+                    // var silence=this.analyser.get('silence');
+
+                    // if(silence[0]=0){
+                    //     var freqSpeed=0;
+                    // }else{
+                    //     var freqSpeed= averageAmp/this.amplitude;
+                    // }
+
+                    zcr= zcr/this.zcrTresh;
+
+                    //value= (freqSpeed+zcr)/2;
+                    value=zcr;
+
                     break;
              // case 'mfcc':
              //         var mfcc=this.analyser.get('mfcc');
