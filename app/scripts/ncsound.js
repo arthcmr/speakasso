@@ -69,14 +69,12 @@ NCSOUND.get = function(feature) {
                     value = intensity;
                     break;  
             case 'silence':
-            //From raw freq data to 0 or 1: silence or speech, compare max decibel value to NCSOUND.silenceLevel
             // Takes NCSOUND.lastSpokenTimestamp into account
-            // Returns and array [silence (boolean), silenceDuration (ms)]
+            // Returns the duration of the current silence, 0 is no silence. 
             // when silence = 0, silenceDuration = the duration of the current silence, if the silence continous over several calls to the function,the duraiton grows.
             // when silence = 1, silenceDuration = 0;
             var isSilent = true;
             var freqData = this.analyser.get('amplitudeSpectrum');
-            value=[];
 
             for (key in freqData) {
                 if (freqData[key] > this.silenceLevel) {
@@ -86,20 +84,17 @@ NCSOUND.get = function(feature) {
             // Speaking!
             if (!isSilent) {
                 this.silenceTimestamp = new Date().getTime();
-                value[0]=1;
-                value[1]=0;
+                value=0;
             }
             // Silent!
             else {
                 var timeDif = new Date().getTime() - this.silenceTimestamp;
                 if (timeDif > this.silenceDuration) {
                     // Suddenly, silence.
-                    value[0]=0;  
-                    value[1]=timeDif;    
+                    value=timeDif;    
                 } else {
                     // The silence is too young.
-                    value[0]=1;      
-                    value[1]=0;        
+                    value=0;              
                 }
             }
                 break;
