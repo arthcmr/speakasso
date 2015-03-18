@@ -171,7 +171,10 @@ module.exports = function(grunt) {
         wiredep: {
             app: {
                 src: ['<%= yeoman.app %>/index.html'],
-                ignorePath: /\.\.\//
+                ignorePath: /\.\.\//,
+                onMainNotFound: function(pkg) {
+                    console.log(pkg)
+                }
             },
             sass: {
                 src: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
@@ -347,7 +350,7 @@ module.exports = function(grunt) {
                         '.htaccess',
                         '*.html',
                         'views/{,*/}*.html',
-                        'images/{,*/}*.{webp}',
+                        'images/{,*/}*.{webp,png,jpg,gif}',
                         'fonts/*'
                     ]
                 }, {
