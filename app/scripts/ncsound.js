@@ -16,14 +16,21 @@ NCSOUND.i=1;
 //------
 NCSOUND.silenceLevel=0.3;
 NCSOUND.silenceTimestamp;
+NCSOUND.silenceTimestampSpeed;
 NCSOUND.silenceDuration=250;
+NCSOUND.silenceDurationSpeed=40;
+
 
 NCSOUND.prevMaxFrequencyKey=0;
 NCSOUND.kurtosisLevel=1500;
 NCSOUND.skewnessLevel=5;
 
-NCSOUND.prevAmpAvg=0;
-NCSOUND.zcrTresh=200;
+NCSOUND.arraySpeech=[];
+NCSOUND.tenSec=255; //(number of blocks for 10 seconds)
+NCSOUND.counterSec=0;
+NCSOUND.speech=false;
+NCSOUND.durationSound;
+NCSOUND.speedTresh=50;
 
 NCSOUND.init= function(context, source, buffer){
     this.analyser=new Meyda(context, source, 512);
@@ -73,6 +80,7 @@ NCSOUND.get = function(feature) {
             // Returns the duration of the current silence, 0 is no silence. 
             // when silence = 0, silenceDuration = the duration of the current silence, if the silence continous over several calls to the function,the duraiton grows.
             // when silence = 1, silenceDuration = 0;
+
             var isSilent = true;
             var freqData = this.analyser.get('amplitudeSpectrum');
 
@@ -156,29 +164,49 @@ NCSOUND.get = function(feature) {
                     value= (spectrumFeatures+maxBandLoudnessKey+pitchVariance)/3;
                     break;
             case 'speed':
-                    var zcr = this.analyser.get('zcr');
+                    var isSilent = true;
                     var freqData = this.analyser.get('amplitudeSpectrum');
-                    var averageAmp=0;
+                    var speed=0;
 
-                    // for (key in freqData){
-                    //     averageAmp+=freqData[key];
-                    // }
-                    // averageAmp=averageAmp/freqData.length;
+                    for (key in freqData) {
+                        if (freqData[key] > this.silenceLevel) {
+                            isSilent = false;
+                        }
+                    }
+         
+                    if (isSilent) {
+                        this.silenceTimestampSpeed = new Date().getTime();
+                        if (this.speech){
+                            this.arraySpeech[this.counterSec]= this.durationSound;
+                            this.speech=false;
+                        }else{
+                            this.arraySpeech[this.counterSec]=0;
+                        }
+                    }
+                    else {
+                        var timeDif = new Date().getTime() - this.silenceTimestampSpeed;
+                        if (timeDif > this.silenceDurationSpeed) {
+                            this.durationSound=timeDif;
+                            this.speech=true;    
+                        }
+                        this.arraySpeech[this.counterSec]=0; 
+                    }
 
-                    // var silence=this.analyser.get('silence');
+                    this.counterSec+=1;
 
-                    // if(silence[0]=0){
-                    //     var freqSpeed=0;
-                    // }else{
-                    //     var freqSpeed= averageAmp/this.amplitude;
-                    // }
+                    if (this.counterSec>this.tenSec){
+                        this.counterSec=0;
+                    }
 
-                    zcr= zcr/this.zcrTresh;
-
-                    //value= (freqSpeed+zcr)/2;
-                    value=zcr;
-
-                    break;
+                    for (i in this.arraySpeech){
+                        if(this.arraySpeech[i]>0){
+                            speed+=1;
+                        }
+                    }
+                    speed=speed*100/this.speedTresh;
+         
+                    value=speed;
+               break;
              // case 'mfcc':
              //         var mfcc=this.analyser.get('mfcc');
 
