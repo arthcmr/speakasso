@@ -102,7 +102,7 @@ NCSOUND.get = function(feature) {
                     value[1]=0;        
                 }
             }
-            break;
+                break;
             case 'emotion':
                     var freqData = this.analyser.get('amplitudeSpectrum');
                     var maxAmpKey=0, maxAmp=0;
@@ -214,94 +214,4 @@ NCSOUND.get = function(feature) {
 
        }
        return value;
-}
-        case 'emotion':
-            var freqData = this.analyser.get('amplitudeSpectrum');
-            var maxAmpKey = 0,
-                maxAmp = 0;
-            var skewness = this.analyser.get('spectralSkewness')
-            var kurtosis = this.analyser.get('spectralKurtosis'); // how flat the signal is around its mean (>0 pickier, <0 flatter)
-            var maxBandLoudness = 0,
-                maxBandLoudnessKey = 0;
-            var loudnessArray = this.analyser.get('loudness').specific;
-            var silence = true;
-
-            //get the key of the highest amplitude frequency, the largest the key, the highest the pitch, the more emotion.
-            //particularly true when there is a significant change from the previous frequency.
-            for (key in freqData) {
-                if (freqData[key] > maxAmp) {
-                    maxAmpKey = key;
-                    maxAmp = freqData[key];
-                }
-
-                if (freqData[key] > this.silenceLevel) {
-                    silence = false;
-                }
-            }
-
-            var difMaxFreqs = maxAmpKey - this.prevMaxFrequencyKey;
-
-            //NormalizeMax Amplitudes and Differences
-            maxAmpKey = maxAmpKey * 100 / (freqData.length - 1);
-            difMaxFreqs = Math.abs(difMaxFreqs) * 100 / (freqData.length - 1);
-
-            var pitchVariance = (maxAmpKey + difMaxFreqs) / 2;
-
-            this.prevMaxFreqKey = maxAmpKey;
-
-            //Loudness
-            for (band in loudnessArray) {
-                if (loudnessArray[band] > maxBandLoudness) {
-                    maxBandLoudnessKey = band;
-                    maxBandLoudness = loudnessArray[band];
-                }
-            }
-
-            //Normalize Loundess index
-            maxBandLoudnessKey = maxBandLoudnessKey * 100 / (loudnessArray.length - 1);
-
-            //Normalize Skewness
-            skewness = skewness * 100 / this.skewnessLevel;
-            //Normalize Kurtosis
-
-            kurtosis = (kurtosis + this.kurtosisLevel) * 100 / ((this.kurtosisLevel) * 2);
-
-            if (!silence) {
-                var spectrumFeatures = (skewness + kurtosis) / 2;
-            } else {
-                var spectrumFeatures = 0;
-            }
-
-            value = (spectrumFeatures + maxBandLoudnessKey + pitchVariance) / 3;
-            break;
-            // case 'mfcc':
-            //         var mfcc=this.analyser.get('mfcc');
-
-            //         if(this.max<mfcc){
-            //             this.max=mfcc;
-            //         }
-
-
-            //         if(this.min>mfcc){
-            //             this.min=mfcc;
-            //         }
-
-            //         this.avg=(this.avg*(this.i-1)+mfcc)/this.i;
-            //         console.log (mfcc);
-            //         console.log (this.i);
-            //         console.log ("Avg "+this.avg);
-            //         console.log ("Max "+this.max);
-            //         console.log ("Min "+this.min);
-            //         this.i+=1;
-
-            //         value=mfcc;
-
-            //        break;
-            // //in case its not a customized feature, try meyda default ones
-        default:
-            value = this.analyser.get(feature);
-            break;
-
-    }
-    return value;
 }
