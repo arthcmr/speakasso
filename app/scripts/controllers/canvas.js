@@ -60,8 +60,8 @@
                     name: "Hitler 1933  (00:55)",
                     value: "https://soundcloud.com/silv3rr/adolf-hitler-speech-1933"
                 }, {
-                    name: "Tada  (00:55)",
-                    value: "tada.mp3"
+                    name: "David Guetta",
+                    value: "https://soundcloud.com/davidguetta/david-guetta-feat-emeli-sande-what-i-did-for-love-vinai-remix"
                 }],
 
                 selected: {
@@ -77,13 +77,14 @@
             $scope.mic = false;
 
             var config = $rootScope.settings.config,
+                painter = $rootScope.settings.painter.value,
                 data_options = config.data_options,
                 options = config.extra_options;
 
             //painter options
             var canvas = document.getElementById("visualization"),
                 ctx = canvas.getContext("2d"),
-                painter = ARTGEN.init("visualization", "circle", options);
+                painter = ARTGEN.init("visualization", painter, options);
 
             //audio variables
             var context = new AudioContext(),
