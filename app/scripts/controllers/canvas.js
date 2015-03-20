@@ -198,7 +198,7 @@
                     source = context.createMediaElementSource(audio);
                     source.connect(context.destination);
 
-                    NCSOUND.init(context, source, 512,false);
+                    NCSOUND.init(context, source, 512,true);
 
                     $scope.ready = true;
                     $scope.loading = false;
@@ -235,7 +235,7 @@
                     source = context.createMediaElementSource(audio);
                     source.connect(context.destination);
 
-                    NCSOUND.init(context, source, 512,false);
+                    NCSOUND.init(context, source, 512,true);
 
                     $scope.ready = true;
                     $scope.loading = false;
@@ -262,7 +262,7 @@
                             source = context.createMediaStreamSource(media);
                             mic_context = context;
                             mic_source = source;
-                            NCSOUND.init(context, source, 512,true);
+                            NCSOUND.init(context, source, 512,false);
                             console.log("Microphone activated successfully");
 
                             $scope.ready = true;
@@ -279,7 +279,7 @@
                     context = mic_context;
                     source = mic_source;
 
-                    NCSOUND.init(context, source, 512,true);
+                    NCSOUND.init(context, source, 512,false);
                     console.log("Microphone reactivated successfully");
 
                     $scope.ready = true;

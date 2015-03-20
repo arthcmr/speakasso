@@ -7,7 +7,7 @@ NCSOUND.analyser = null;
 
 NCSOUND.amplitudeTresh= 3;//5;
 NCSOUND.energyTresh= 130;
-NCSOUND.energyTreshRec=31;
+NCSOUND.energyTreshRec=27;
 NCSOUND.loudnessTresh= 20;//50;
 //Testing Variables
 NCSOUND.avg=0;
@@ -89,6 +89,9 @@ NCSOUND.get = function(feature) {
                     var intensity= (energy+loudness)/2;
 
                     value = intensity;
+                    //value= (20/17)*value-(300/17); //map 15 to 0 and 100 to a 100;
+                    value= (10/9)*value-(100/9); //map 10 to 0 and 100 to a 100;
+                    console.log(treshold);
                  
                     break;  
             case 'silence':
@@ -173,10 +176,13 @@ NCSOUND.get = function(feature) {
 
                         //Normalize Kurtosis
                         kurtosis=Math.abs(((kurtosis+this.kurtosisLevel)*100/((this.kurtosisLevel)*2))-100);
+                        //kurtosis=Math.abs(((kurtosis+this.kurtosisLevel)*100/((this.kurtosisLevel)*2)));
 
                         var spectrumFeatures=(skewness+kurtosis)/2;
                         
                         value= (spectrumFeatures+maxBandLoudnessKey+pitchVariance)/3;
+                        value= (20/17)*value-(300/17);
+                        //value= (10/9)*value-(100/9); //map 10 to 0 and 100 to a 100;
                     // }else{
                     //     value=0;
                     // }    
