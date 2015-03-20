@@ -52,18 +52,30 @@
                 possible: [{
                     name: "Choose...",
                     value: false
+                 }, {             
+                    name: "Martin Luther King Jr - I have a dream (16:15)",
+                     value: "https://soundcloud.com/luke1966/martin-luther-king-jr-i-have-a-dream-full-speech"
+                 }, {
+                    name: "Steve Jobs Stanford Commencement (14:34)",
+                     value: "https://soundcloud.com/internetsuccess/steve-jobs-commencement-speech"
+                 }, {
+                     name: "Hitler 1933  (00:55)",
+                     value: "https://soundcloud.com/silv3rr/adolf-hitler-speech-1933"
+                 }, {
+                    name: "Charlie Chaplin - Dictator (03:52)",
+                    value: "https://soundcloud.com/boomztick/the-great-dictator-speech"
                 }, {
-                    name: "I have a dream (16:15)",
-                    value: "https://soundcloud.com/luke1966/martin-luther-king-jr-i-have-a-dream-full-speech"
+                    name: "Halle Berry Oscar Acceptance (03:46)",
+                    value: "https://soundcloud.com/midass/halle-berry-wins-best-actress"
                 }, {
-                    name: "Steve Jobs (14:34)",
-                    value: "https://soundcloud.com/internetsuccess/steve-jobs-commencement-speech"
+                    name: "Woman's dream  (00:58)",
+                    value: "https://soundcloud.com/midass/sultry-voice"
                 }, {
-                    name: "Hitler 1933  (00:55)",
-                    value: "https://soundcloud.com/silv3rr/adolf-hitler-speech-1933"
+                    name: "Newsroom - Is America the greatest country?  (01:37)",
+                    value: "https://soundcloud.com/midass/newsroom-opening-scene"
                 }, {
-                    name: "David Guetta",
-                    value: "https://soundcloud.com/davidguetta/david-guetta-feat-emeli-sande-what-i-did-for-love-vinai-remix"
+                    name: "Jersey Rugby commentary (03:49)",
+                    value: "https://soundcloud.com/jongripton/jerseyrugby"
                 }, {
                     name: "Hans Rosling",
                     value: "https://soundcloud.com/scidev-net/hans-rosling-global-trends"
@@ -186,7 +198,7 @@
                     source = context.createMediaElementSource(audio);
                     source.connect(context.destination);
 
-                    NCSOUND.init(context, source, 512);
+                    NCSOUND.init(context, source, 512,false);
 
                     $scope.ready = true;
                     $scope.loading = false;
@@ -223,7 +235,7 @@
                     source = context.createMediaElementSource(audio);
                     source.connect(context.destination);
 
-                    NCSOUND.init(context, source, 512);
+                    NCSOUND.init(context, source, 512,false);
 
                     $scope.ready = true;
                     $scope.loading = false;
@@ -250,7 +262,7 @@
                             source = context.createMediaStreamSource(media);
                             mic_context = context;
                             mic_source = source;
-                            NCSOUND.init(context, source, 512);
+                            NCSOUND.init(context, source, 512,true);
                             console.log("Microphone activated successfully");
 
                             $scope.ready = true;
@@ -267,7 +279,7 @@
                     context = mic_context;
                     source = mic_source;
 
-                    NCSOUND.init(context, source, 512);
+                    NCSOUND.init(context, source, 512,true);
                     console.log("Microphone reactivated successfully");
 
                     $scope.ready = true;
