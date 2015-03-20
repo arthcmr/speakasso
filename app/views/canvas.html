@@ -36,6 +36,23 @@
                 </div>
 
             </div>
+
+            <!-- SOUNDCLOUD -->
+            <div id="sidebar_input_soundcloud" ng-if="input.selected.value == 'soundcloud'" class="section">
+
+                <p class="section_title">SOUNDCLOUD URL</p>
+
+                <input type="text" class="btn btn-lg" ng-model="soundcloud_url" />
+
+                <div ng-if="soundcloud_url">
+
+                    <button class="btn btn-flat" ng-click="setUpSoundCloud(soundcloud_url)">Load</button>
+
+                    <button ng-disabled="loading" ng-click='togglePlaySoundCloud()' id="soundcloud_play" class="btn btn-circle btn-flat btn-lg"><i class="fa" ng-class="{'fa-play': (!playing && !loading), 'fa-pause': (playing && !loading), 'fa-ellipsis-h': loading}"></i>
+                    </button>
+                </div>
+
+            </div>
         </div>
 
         <div class="divide sidebar_save">
@@ -52,13 +69,13 @@
             <!-- SAVE OPTIONS -->
             <div ng-if="ready && !sidebar_middle" class="section">
                 <p>
-                    <button class="btn btn-flat btn-lg">
+                    <button ng-click="saveImage()" class="btn btn-flat btn-lg">
                         <i class="fa fa-download"></i> Save Image
                     </button>
                 </p>
                 <p>
-                    <button class="btn btn-flat btn-lg">
-                        <i class="fa fa-cloud-upload"></i> Share
+                    <button ng-click="shareImage()" class="btn btn-flat btn-lg">
+                        <i class="fa fa-cloud-upload"></i> Share Image
                     </button>
                 </p>
             </div>

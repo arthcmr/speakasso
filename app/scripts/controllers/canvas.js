@@ -31,13 +31,15 @@
                 }, {
                     name: "Presets",
                     value: "preset"
-                }, {
-                    name: "Audio File",
-                    value: "file"
-                }, {
-                    name: "Soundcloud",
-                    value: "soundcloud"
-                }],
+                }
+                // ,{
+                //     name: "Audio File",
+                //     value: "file"
+                // }, {
+                //     name: "Soundcloud",
+                //     value: "soundcloud"
+                // }
+                ],
 
                 selected: {
                     name: "Microphone",
@@ -62,6 +64,9 @@
                 }, {
                     name: "David Guetta",
                     value: "https://soundcloud.com/davidguetta/david-guetta-feat-emeli-sande-what-i-did-for-love-vinai-remix"
+                }, {
+                    name: "Hans Rosling",
+                    value: "https://soundcloud.com/scidev-net/hans-rosling-global-trends"
                 }],
 
                 selected: {
@@ -75,6 +80,7 @@
             $scope.loading = false;
             $scope.ready = false;
             $scope.mic = false;
+            $scope.soundcloud_url = "";
 
             var config = $rootScope.settings.config,
                 painter = $rootScope.settings.painter.value,
@@ -132,7 +138,7 @@
                 if (preset === "preset") {
                     watching_preset = $scope.$watch('preset.selected.value',
                         function() {
-                            setUpSoundCloud($scope.preset.selected.value);
+                            setUpPreset($scope.preset.selected.value);
                         });
                 } else if (preset === "microphone") {
                     setUpMicrophone(function() {
@@ -148,12 +154,52 @@
                 }
             }
 
-            function setUpSoundCloud(track_url) {
+            function ValidURL(url) {
+                return /^(ftp|http|https):\/\/[^ "]+$/.test(url);
+            }
 
+            $scope.setUpSoundCloud = function(track_url) {
+
+                console.log("loading soundcloud " + track_url);
+
+                if (!track_url && !ValidURL(track_url)) return;
+
+                stopUpdate();
+                stopPainter();
+                stopPlay();
+
+                $scope.loading = true;
+                $scope.mic = false;
+                $scope.ready = false;
+
+                SC.get('/resolve', {
+                    url: track_url
+                }, function(track) {
+
+                    var url = 'http://api.soundcloud.com/tracks/' + track.id + '/stream' +
+                        '?client_id=' + client_id;
+
+
+                    console.log(track_url, "activated successfully");
+                    audio = new Audio();
+                    audio.src = url;
+                    source = context.createMediaElementSource(audio);
+                    source.connect(context.destination);
+
+                    NCSOUND.init(context, source, 512);
+
+                    $scope.ready = true;
+                    $scope.loading = false;
+                    $scope.$apply();
+
+                });
+            }
+
+            function setUpPreset(track_url) {
 
                 console.log("loading " + track_url);
 
-                if (!track_url) return;
+                if (!track_url && !ValidURL(track_url)) return;
 
                 stopUpdate();
                 stopPainter();
@@ -328,6 +374,57 @@
             function resizeCanvas() {
                 canvas.width = window.innerWidth;
                 canvas.height = window.innerHeight;
+            }
+
+            $scope.saveImage = function() {
+                downloadCanvas(this, canvas, (new Date()).getTime() + ".png");
+            };
+
+            $scope.shareImage = function() {
+                shareCanvas(canvas, (new Date()).getTime() + ".png");
+            };
+
+            //ScreenShot
+            function downloadCanvas(link, canvas, filename) {
+                var url = canvas.toDataURL();
+                var win = window.open(url, '_blank');
+                win.focus();
+            }
+
+            //ScreenShot
+            function shareCanvas(canvas, name) {
+
+                try {
+                    var img = canvas.toDataURL('image/jpeg', 0.9).split(',')[1];
+                } catch (e) {
+                    var img = canvas.toDataURL().split(',')[1];
+                }
+                // open the popup in the click handler so it will not be blocked
+                var w = window.open();
+                w.document.write('Uploading...');
+
+                $.ajax({
+                    url: 'http://api.imgur.com/3/image',
+                    type: 'POST',
+                    headers: {
+                        'Authorization': 'Client-ID 27d910ccaefcde6'
+                    },
+                    data: {
+                        type: 'base64',
+                        key: '27d910ccaefcde6',
+                        name: name,
+                        title: name,
+                        caption: name,
+                        image: img
+                    },
+                    dataType: 'json'
+                }).success(function(data) {
+                    console.log(data);
+                    w.location.href = data['upload']['links']['imgur_page'];
+                }).error(function() {
+                    alert('Could not reach api.imgur.com. Sorry :(');
+                    w.close();
+                });
             }
 
         });
