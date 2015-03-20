@@ -5,9 +5,10 @@ navigator.getUserMedia = (navigator.getUserMedia || navigator.webkitGetUserMedia
 var NCSOUND = {};
 NCSOUND.analyser = null;
 
-NCSOUND.amplitudeTresh= 5;
+NCSOUND.amplitudeTresh= 3;//5;
 NCSOUND.energyTresh= 130;
-NCSOUND.loudnessTresh= 50;
+NCSOUND.energyTreshRec=31;
+NCSOUND.loudnessTresh= 20;//50;
 //Testing Variables
 NCSOUND.avg=0;
 NCSOUND.max=0;
@@ -18,24 +19,29 @@ NCSOUND.silenceLevel=0.3;
 NCSOUND.silenceTimestamp;
 NCSOUND.silenceTimestampSpeed;
 NCSOUND.silenceDuration=250;
-NCSOUND.silenceDurationSpeed=40;
+NCSOUND.silenceDurationSpeed=30;
 
+NCSOUND.freqsVoice=46;
 
 NCSOUND.prevMaxFrequencyKey=0;
-NCSOUND.kurtosisLevel=1500;
-NCSOUND.skewnessLevel=5;
+NCSOUND.kurtosisLevel=80;//1500;
+NCSOUND.skewnessLevel=4;//5;
+NCSOUND.skewnessLevelMin=-1;//5;
 
 NCSOUND.arraySpeech=[];
-NCSOUND.tenSec=255; //(number of blocks for 10 seconds)
+NCSOUND.tenSec=500; //(number of blocks for 10 seconds)
 NCSOUND.counterSec=0;
 NCSOUND.speech=false;
 NCSOUND.durationSound;
-NCSOUND.speedTresh=50;
+NCSOUND.speedTresh=2500;
+NCSOUND.recorded;
 
-NCSOUND.init= function(context, source, buffer){
+
+NCSOUND.init= function(context, source, buffer,getMedia){
     this.analyser=new Meyda(context, source, 512);
-}
 
+    NCSOUND.recorded=getMedia;
+}
 
 NCSOUND.get = function(feature) {
        //if an array is received, combine results into an array
@@ -56,24 +62,34 @@ NCSOUND.get = function(feature) {
                     var maxAmp=0;
                     var energy=this.analyser.get('energy');
                     var loudness=this.analyser.get('loudness').total;
-
-
-                    //get HighestAmplitude Frequency
-                    for (freq in ampArray){
-                        if(ampArray[freq]>maxAmp){
-                            maxAmp=ampArray[freq];
-                        }
+                    var treshold;
+    
+                    if(this.recorded){
+                        treshold=this.energyTreshRec;
+                    }else{
+                        treshold=this.energyTresh;
                     }
 
+                    //get HighestAmplitude Frequency
+                    // for (freq in ampArray){
+                    //     if(ampArray[freq]>maxAmp){
+                    //         maxAmp=ampArray[freq];
+                    //     }
+                    // }
+
+
                     //Normalize values between 0 and 100
-                    maxAmp= maxAmp*100/this.amplitudeTresh;
-                    energy= energy*100/this.energyTresh;
+                
+                    // maxAmp= maxAmp*100/this.amplitudeTresh;
+                    energy= energy*100/treshold;
                     loudness=loudness*100/this.loudnessTresh;
 
                     //Output intensity
-                    var intensity= (maxAmp+energy+loudness)/3;
+                    // var intensity= (maxAmp+energy+loudness)/3;
+                    var intensity= (energy+loudness)/2;
 
                     value = intensity;
+                 
                     break;  
             case 'silence':
             // Takes NCSOUND.lastSpokenTimestamp into account
@@ -117,7 +133,7 @@ NCSOUND.get = function(feature) {
 
                     //get the key of the highest amplitude frequency, the largest the key, the highest the pitch, the more emotion.
                     //particularly true when there is a significant change from the previous frequency.
-                    for (key in freqData) {
+                    for (key=0; key<this.freqsVoice; key++) {
                         if (freqData[key] > maxAmp) {
                             maxAmpKey=key;
                             maxAmp=freqData[key];
@@ -128,40 +144,42 @@ NCSOUND.get = function(feature) {
                         }
                     }
 
-                    var difMaxFreqs=maxAmpKey-this.prevMaxFrequencyKey;
+                    // if (!silence){
+                        var difMaxFreqs=maxAmpKey-this.prevMaxFrequencyKey;
 
-                    //NormalizeMax Amplitudes and Differences
-                    maxAmpKey=maxAmpKey*100/(freqData.length-1);
-                    difMaxFreqs=Math.abs(difMaxFreqs)*100/(freqData.length-1);
+                        //NormalizeMax Amplitudes and Differences
+                        maxAmpKey=maxAmpKey*100/(this.freqsVoice-1);
+                        difMaxFreqs=Math.abs(difMaxFreqs)*100/(this.freqsVoice-1);
 
-                    var pitchVariance=(maxAmpKey+difMaxFreqs)/2;
+                        var pitchVariance=(maxAmpKey+difMaxFreqs)/2;  //djsdjsadisadisdisadiasd
+                        //var pitchVariance=difMaxFreqs;
 
-                    this.prevMaxFreqKey=maxAmpKey;
+                        this.prevMaxFreqKey=maxAmpKey;
 
-                    //Loudness
-                    for (band in loudnessArray){
-                        if (loudnessArray[band]>maxBandLoudness){
-                            maxBandLoudnessKey=band;
-                            maxBandLoudness= loudnessArray[band];
+                        //Loudness
+                        for (band=0; band<19;band++){
+                            if (loudnessArray[band]>maxBandLoudness){
+                                maxBandLoudnessKey=band;
+                                maxBandLoudness= loudnessArray[band];
+                            }
                         }
-                    }
+                        
+                        //Normalize Loundess index
+                        maxBandLoudnessKey=maxBandLoudnessKey*100/(19-1);
 
-                    //Normalize Loundess index
-                    maxBandLoudnessKey=maxBandLoudnessKey*100/(loudnessArray.length-1);
+                        //Normalize Skewness
+                        skewness=(skewness-this.skewnessLevelMin)*100/(this.skewnessLevel-this.skewnessLevelMin);
+                       
 
-                    //Normalize Skewness
-                    skewness=skewness*100/this.skewnessLevel;
-                    //Normalize Kurtosis
+                        //Normalize Kurtosis
+                        kurtosis=Math.abs(((kurtosis+this.kurtosisLevel)*100/((this.kurtosisLevel)*2))-100);
 
-                    kurtosis=(kurtosis+this.kurtosisLevel)*100/((this.kurtosisLevel)*2);
-
-                    if (!silence){
                         var spectrumFeatures=(skewness+kurtosis)/2;
-                    }else{
-                        var spectrumFeatures=0;
-                    }
-
-                    value= (spectrumFeatures+maxBandLoudnessKey+pitchVariance)/3;
+                        
+                        value= (spectrumFeatures+maxBandLoudnessKey+pitchVariance)/3;
+                    // }else{
+                    //     value=0;
+                    // }    
                     break;
             case 'speed':
                     var isSilent = true;
@@ -203,7 +221,9 @@ NCSOUND.get = function(feature) {
                             speed+=1;
                         }
                     }
+                    
                     speed=speed*100/this.speedTresh;
+                     // console.log(speed);
          
                     value=speed;
                break;
