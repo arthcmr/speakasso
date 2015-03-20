@@ -33,7 +33,7 @@ NCSOUND.tenSec=500; //(number of blocks for 10 seconds)
 NCSOUND.counterSec=0;
 NCSOUND.speech=false;
 NCSOUND.durationSound;
-NCSOUND.speedTresh=2500;
+NCSOUND.speedTresh=25;
 NCSOUND.recorded;
 
 
