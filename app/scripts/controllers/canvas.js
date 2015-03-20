@@ -396,6 +396,18 @@
                 shareCanvas(canvas, (new Date()).getTime() + ".png");
             };
 
+            $scope.eraseCanvas = function() {
+                ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.fillStyle = 'rgb(255,255,255)';
+                ctx.fill();
+            }
+
+            $scope.layerCanvas = function() {
+                ctx.rect(0, 0, ctx.canvas.width, ctx.canvas.height);
+                ctx.fillStyle = 'rgba(255,255,255,0.5)';
+                ctx.fill();
+            }
+
             //ScreenShot
             function downloadCanvas(link, canvas, filename) {
                 var url = canvas.toDataURL();
