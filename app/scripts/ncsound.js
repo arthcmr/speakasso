@@ -19,7 +19,7 @@ NCSOUND.silenceLevel=0.3;
 NCSOUND.silenceTimestamp;
 NCSOUND.silenceTimestampSpeed;
 NCSOUND.silenceDuration=250;
-NCSOUND.silenceDurationSpeed=30;
+NCSOUND.silenceDurationSpeed=20;
 
 NCSOUND.freqsVoice=46;
 
@@ -33,7 +33,7 @@ NCSOUND.tenSec=500; //(number of blocks for 10 seconds)
 NCSOUND.counterSec=0;
 NCSOUND.speech=false;
 NCSOUND.durationSound;
-NCSOUND.speedTresh=25;
+NCSOUND.speedTresh=37;
 NCSOUND.recorded;
 
 
@@ -187,7 +187,7 @@ NCSOUND.get = function(feature) {
                     var speed=0;
 
                     for (key in freqData) {
-                        if (freqData[key] > this.silenceLevel) {
+                        if (freqData[key] > this.silenceLevel-0.05) {
                             isSilent = false;
                         }
                     }
@@ -221,9 +221,12 @@ NCSOUND.get = function(feature) {
                             speed+=1;
                         }
                     }
+                             
                     
                     speed=speed*100/this.speedTresh;
                      // console.log(speed);
+                    //speed=(5/3)*speed - (200/3);
+         
          
                     value=speed;
                break;
