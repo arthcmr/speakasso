@@ -103,7 +103,7 @@ NCSOUND.get = function(feature) {
             var isSilent = true;
             var freqData = this.analyser.get('amplitudeSpectrum');
 
-            for (key in freqData) {
+            for (var key in freqData) {
                 if (freqData[key] > this.silenceLevel) {
                 isSilent = false;
                 }
@@ -136,7 +136,7 @@ NCSOUND.get = function(feature) {
 
                     //get the key of the highest amplitude frequency, the largest the key, the highest the pitch, the more emotion.
                     //particularly true when there is a significant change from the previous frequency.
-                    for (key=0; key<this.freqsVoice; key++) {
+                    for (var key=0; key<this.freqsVoice; key++) {
                         if (freqData[key] > maxAmp) {
                             maxAmpKey=key;
                             maxAmp=freqData[key];
@@ -160,7 +160,7 @@ NCSOUND.get = function(feature) {
                         this.prevMaxFreqKey=maxAmpKey;
 
                         //Loudness
-                        for (band=0; band<19;band++){
+                        for (var band=0; band<19;band++){
                             if (loudnessArray[band]>maxBandLoudness){
                                 maxBandLoudnessKey=band;
                                 maxBandLoudness= loudnessArray[band];
@@ -192,7 +192,7 @@ NCSOUND.get = function(feature) {
                     var freqData = this.analyser.get('amplitudeSpectrum');
                     var speed=0;
 
-                    for (key in freqData) {
+                    for (var key in freqData) {
                         if (freqData[key] > this.silenceLevel-0.05) {
                             isSilent = false;
                         }
@@ -222,7 +222,7 @@ NCSOUND.get = function(feature) {
                         this.counterSec=0;
                     }
 
-                    for (i in this.arraySpeech){
+                    for (var i in this.arraySpeech){
                         if(this.arraySpeech[i]>0){
                             speed+=1;
                         }
